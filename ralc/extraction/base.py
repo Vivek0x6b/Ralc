@@ -38,3 +38,24 @@ class Extractor(Protocol):
 
     def extract(self, message: Message) -> Signals:
         ...
+
+
+def normalize_entities(raw: list[str]) -> list[str]:
+    """Normalize an ordered list of entity strings.
+
+    Strips surrounding whitespace, drops empties, and deduplicates
+    case-insensitively while keeping the first-seen spelling and order. Shared
+    by every Extractor so the linker deduplicates identically regardless of how
+    the entities were produced.
+    """
+    seen: dict[str, str] = {}
+    ordered: list[str] = []
+    for text in raw:
+        norm = text.strip()
+        if not norm:
+            continue
+        key = norm.lower()
+        if key not in seen:
+            seen[key] = norm
+            ordered.append(norm)
+    return ordered

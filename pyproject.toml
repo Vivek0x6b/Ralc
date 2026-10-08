@@ -24,6 +24,9 @@ embed = [
 tokens = [
     "tiktoken",
 ]
+gemma = [
+    "google-genai",
+]
 dev = [
     "pytest",
 ]

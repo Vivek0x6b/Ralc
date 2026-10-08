@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 
-from ralc.extraction.base import Extractor, Message, Signals
+from ralc.extraction.base import Extractor, Message, Signals, normalize_entities
 
 # Backticked terms: `redis`, `get_user`.
 _BACKTICK = re.compile(r"`([^`]+)`")
@@ -61,19 +61,8 @@ class HeuristicExtractor:
                 spans.append((match.start(), match.end(), term))
 
         kept = self._drop_contained(spans)
-
-        # Order by position, then dedup case-insensitively keeping first spelling.
-        seen: dict[str, str] = {}
-        ordered: list[str] = []
-        for _, _, text in sorted(kept, key=lambda s: s[0]):
-            norm = text.strip()
-            if not norm:
-                continue
-            key = norm.lower()
-            if key not in seen:
-                seen[key] = norm
-                ordered.append(norm)
-        return ordered
+        ordered_texts = [text for _, _, text in sorted(kept, key=lambda s: s[0])]
+        return normalize_entities(ordered_texts)
 
     @staticmethod
     def _drop_contained(
