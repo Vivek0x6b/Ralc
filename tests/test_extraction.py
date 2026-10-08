@@ -111,9 +111,9 @@ def test_message_nodes_and_seq():
         Message("user", "third"),
     ])
     assert ids == ["m0", "m1", "m2"]
-    assert g.get("m0").metadata == {"role": "user", "seq": 0}
-    assert g.get("m1").metadata == {"role": "assistant", "seq": 1}
-    assert g.get("m2").metadata == {"role": "user", "seq": 2}
+    assert g.get("m0").metadata == {"role": "user", "seq": 0, "is_decision": False}
+    assert g.get("m1").metadata == {"role": "assistant", "seq": 1, "is_decision": False}
+    assert g.get("m2").metadata == {"role": "user", "seq": 2, "is_decision": False}
 
 
 def test_message_timestamp_used_when_provided_else_wallclock():
@@ -224,6 +224,36 @@ def test_second_ingest_continues_chain_and_seq():
 
     answers = {(e.source, e.target) for e in g.edges(type="ANSWERS")}
     assert answers == {("m1", "m0")}  # assistant (call 2) answers user (call 1)
+
+
+# ==========================================================================
+# MessageLinker: state survives save/load and a fresh linker
+# ==========================================================================
+
+def test_cross_call_state_survives_save_load(tmp_path):
+    g = ContextGraph()
+    MessageLinker(HeuristicExtractor()).ingest(g, [
+        Message("user", "Why?"),                          # m0
+        Message("assistant", "we decided on cache_key"),  # m1, decision, entity cache_key
+    ])
+
+    path = tmp_path / "graph.db"
+    g.save(path)
+    g2 = ContextGraph.load(path)
+
+    # a brand-new linker, continuing from the reloaded graph
+    ids = MessageLinker(HeuristicExtractor()).ingest(g2, [
+        Message("user", "let's go with a new cache_key"),  # m2, decision, entity cache_key
+    ])
+
+    assert ids == ["m2"]                                   # seq continued from the graph
+    assert g2.get("m2").metadata["seq"] == 2
+
+    temporal = {(e.source, e.target) for e in g2.edges(type="TEMPORALLY_FOLLOWS")}
+    assert ("m2", "m1") in temporal                        # chain continued across reload
+
+    updates = {(e.source, e.target) for e in g2.edges(type="UPDATES")}
+    assert ("m2", "m1") in updates                         # earlier decision recovered from graph
 
 
 # ==========================================================================
