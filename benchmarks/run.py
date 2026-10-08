@@ -21,10 +21,16 @@ from pathlib import Path
 from ralc import ContextManager
 from ralc.allocation.budget import DefaultTokenCounter
 from ralc.embeddings.local import SentenceTransformerEmbedder
-from ralc.extraction import GemmaExtractor, HeuristicExtractor
+from ralc.extraction import GemmaExtractor, HeuristicExtractor, Message
 from ralc.retrieval.relational import RelationalExpander
 
-from benchmarks.gemma_cache import GEMMA_MODEL, RESULTS, load_gemma_cache, save_gemma_cache
+from benchmarks.gemma_cache import (
+    GEMMA_MODEL,
+    RESULTS,
+    extraction_texts,
+    load_failures,
+    load_gemma_cache,
+)
 from benchmarks.metrics import precision, recall, tokens_used
 
 HERE = Path(__file__).resolve().parent
@@ -107,6 +113,7 @@ def main(argv=None):
     aggregate = {b: {name: {"recall": [], "precision": [], "tokens": [], "latency": []}
                      for name in method_order} for b in BUDGETS}
     gemma_stats = {}
+    heuristic_fallbacks = {}
 
     def evaluate(name, fn):
         print(f"  evaluating {name} ...", flush=True)
@@ -170,18 +177,35 @@ def main(argv=None):
     # Only read or write gemma_cache.json when a Gemma method is selected, so a
     # concurrent warm-up that owns that file is never disturbed.
     if selected_set & GEMMA_METHODS:
-        cache = load_gemma_cache()
+        cache = load_gemma_cache()          # read-only here; the warm-up owns the file
+        failures = load_failures()
+        texts = extraction_texts(messages, questions)
+        heuristic = HeuristicExtractor()
         for name, hybrid in (("ralc_gemma", False), ("ralc_hybrid", True)):
             if name not in selected_set:
                 continue
             print(f"Group: {name}", flush=True)
             extractor = GemmaExtractor(model=GEMMA_MODEL, hybrid=hybrid, strict=True,
-                                       cache=cache, max_retries=6, retry_base_delay=2.0)
+                                       cache=cache, max_retries=5, retry_base_delay=2.0)
+            # Use the heuristic for exactly the strings the warm-up could not get
+            # from Gemma, by seeding their cache entries in memory so the strict
+            # extractor serves them without an API call.
+            mode = "hybrid" if hybrid else "gemma"
+            substituted = 0
+            for failure in failures:
+                if failure["mode"] != mode:
+                    continue
+                content = texts[failure["index"]]
+                key = extractor.cache_key(content)
+                if key not in cache:
+                    cache[key] = heuristic.extract(Message("user", content))
+                    substituted += 1
+            heuristic_fallbacks[name] = substituted
+            print(f"  heuristic substituted for {substituted} failed strings", flush=True)
             manager = ContextManager(embedder=embedder, extractor=extractor, token_counter=counter)
             ingest_all(manager, messages, name)
             evaluate(name, make_ralc(manager))
             gemma_stats[name] = dict(extractor.stats)
-            save_gemma_cache(cache)
             del manager, extractor
             gc.collect()
 
@@ -213,6 +237,7 @@ def main(argv=None):
         "seed_k": SEED_K,
         "token_counter_approximate": counter.approximate,
         "gemma_stats": gemma_stats,
+        "heuristic_fallbacks": heuristic_fallbacks,
         "methods": method_order,
         "aggregate_means": aggregate_means,
         "per_question": per_question,
@@ -238,6 +263,8 @@ def render_markdown(result) -> str:
     lines.append(f"- versions: {result['versions']}")
     if result["gemma_stats"]:
         lines.append(f"- gemma stats: {result['gemma_stats']}")
+    if result.get("heuristic_fallbacks"):
+        lines.append(f"- heuristic fallbacks (failed warm strings): {result['heuristic_fallbacks']}")
     lines.append("")
 
     for budget in result["budgets"]:

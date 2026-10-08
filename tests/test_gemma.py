@@ -214,6 +214,26 @@ def test_retry_then_success_on_rate_limit():
     assert ex.client.models.calls == 2             # one retry after the rate-limit error
 
 
+def test_empty_response_is_a_failure_not_retried():
+    message = Message("user", "use `redis`")
+    ex = _ex(None, max_retries=5)                  # response.text is None (blocked/empty)
+    s = ex.extract(message)
+    assert s == HeuristicExtractor().extract(message)   # fell back, did not crash
+    assert ex.stats["fallbacks"] == 1
+    assert ex.client.models.calls == 1             # not retried
+
+    strict = _ex(None, strict=True, max_retries=5)
+    with pytest.raises(Exception):
+        strict.extract(Message("user", "x"))
+    assert strict.client.models.calls == 1
+
+
+def test_non_retryable_error_is_not_retried():
+    ex = _ex(RuntimeError("boom"), max_retries=5)
+    ex.extract(Message("user", "use `redis`"))
+    assert ex.client.models.calls == 1             # a plain error is not a transient one
+
+
 # --------------------------------------------------------------------------
 # ContextManager integration and live
 # --------------------------------------------------------------------------

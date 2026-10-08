@@ -16,6 +16,28 @@ from ralc.extraction import Signals
 GEMMA_MODEL = "gemma-4-26b-a4b-it"
 RESULTS = Path(__file__).resolve().parent / "results"
 GEMMA_CACHE = RESULTS / "gemma_cache.json"
+GEMMA_FAILURES = RESULTS / "gemma_warm_failures.json"
+
+
+def extraction_texts(messages: list[dict], questions: list[dict]) -> list[str]:
+    """The exact ordered list of strings extracted by the warm-up and the run.
+
+    Every conversation message content, then every question string. The warm-up
+    records failures by index into this list; the runner maps the same indices
+    back to content, so both must build it identically.
+    """
+    return [m["content"] for m in messages] + [q["question"] for q in questions]
+
+
+def load_failures() -> list[dict]:
+    if not GEMMA_FAILURES.exists():
+        return []
+    return json.loads(GEMMA_FAILURES.read_text(encoding="utf-8"))
+
+
+def save_failures(failures: list[dict]) -> None:
+    RESULTS.mkdir(exist_ok=True)
+    GEMMA_FAILURES.write_text(json.dumps(failures, indent=2), encoding="utf-8")
 
 
 def load_gemma_cache() -> dict[str, Signals]:

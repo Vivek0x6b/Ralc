@@ -18,7 +18,10 @@ from ralc.extraction.heuristic import HeuristicExtractor
 # Bump when the prompt changes so cached results from an old prompt are not reused.
 PROMPT_VERSION = "1"
 
-_RATE_LIMIT_MARKERS = ("429", "RESOURCE_EXHAUSTED", "RATE LIMIT", "RATE_LIMIT", "TOO MANY REQUESTS")
+# Only genuine server or rate-limit conditions are worth retrying. An
+# AttributeError, a parse error, or an empty/blocked response is a real failure.
+_RETRYABLE_CODES = (429, 500, 503)
+_RETRYABLE_MARKERS = ("429", "500", "503", "RESOURCE_EXHAUSTED", "UNAVAILABLE", "INTERNAL")
 
 _PROMPT = """You extract structured signals from a single chat message.
 
@@ -43,6 +46,7 @@ class GemmaExtractor:
         strict: bool = False,
         max_retries: int = 3,
         retry_base_delay: float = 1.0,
+        timeout: float = 60.0,
         cache: dict | None = None,
     ):
         self.model = model
@@ -52,6 +56,7 @@ class GemmaExtractor:
         self.strict = strict
         self.max_retries = max_retries
         self.retry_base_delay = retry_base_delay
+        self.timeout = timeout
         self._cache = cache if cache is not None else {}
         self.stats = {"calls": 0, "fallbacks": 0, "cache_hits": 0}
 
@@ -95,23 +100,30 @@ class GemmaExtractor:
         digest = hashlib.sha256(content.encode("utf-8")).hexdigest()
         return f"{self.model}|{int(self.hybrid)}|{PROMPT_VERSION}|{digest}"
 
+    def cache_key(self, content: str) -> str:
+        """Public accessor for the cache key of a message content."""
+        return self._cache_key(content)
+
     def _call_api(self, content: str) -> str:
         prompt = _PROMPT.format(content=content)
         client = self._get_client()
-        last_exc: Exception | None = None
         for attempt in range(self.max_retries):
             try:
                 response = client.models.generate_content(
                     model=self.model, contents=prompt, config={"temperature": 0},
                 )
-                return response.text
+                text = getattr(response, "text", None)
+                if not text or not text.strip():
+                    # A blocked or empty response has no usable text. Treat it as
+                    # a real failure (not transient) so it is never retried.
+                    raise ValueError("empty or blocked response from the model")
+                return text
             except Exception as exc:
-                last_exc = exc
-                if self._is_rate_limit(exc) and attempt < self.max_retries - 1:
+                if self._is_retryable(exc) and attempt < self.max_retries - 1:
                     time.sleep(self.retry_base_delay * (2 ** attempt))
                     continue
                 raise
-        raise last_exc   # pragma: no cover - loop always returns or raises above
+        raise RuntimeError("unreachable")  # pragma: no cover
 
     def _get_client(self):
         if self.client is None:
@@ -120,13 +132,21 @@ class GemmaExtractor:
             api_key = os.environ.get("GEMINI_API_KEY")
             if not api_key:
                 raise ValueError("GEMINI_API_KEY is not set")
-            self.client = genai.Client(api_key=api_key)
+            self.client = genai.Client(
+                api_key=api_key,
+                http_options={"timeout": int(self.timeout * 1000)},
+            )
         return self.client
 
     @staticmethod
-    def _is_rate_limit(exc: Exception) -> bool:
+    def _is_retryable(exc: Exception) -> bool:
+        code = getattr(exc, "code", None)
+        if code is None:
+            code = getattr(exc, "status_code", None)
+        if code in _RETRYABLE_CODES:
+            return True
         text = str(exc).upper()
-        return any(marker in text for marker in _RATE_LIMIT_MARKERS)
+        return any(marker in text for marker in _RETRYABLE_MARKERS)
 
     @staticmethod
     def _parse(text: str) -> tuple[list[str], bool]:
