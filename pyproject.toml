@@ -14,6 +14,7 @@ authors = [{ name = "Vivek Bisht" }]
 keywords = ["llm", "context", "retrieval", "graph", "rag", "token-budget"]
 dependencies = [
     "networkx",
+    "numpy",
 ]
 
 [project.optional-dependencies]
