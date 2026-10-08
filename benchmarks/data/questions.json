@@ -6,8 +6,8 @@
       "need several rows to change together"
     ],
     "gold_message_ids": [
-      "m145",
-      "m146"
+      "m100",
+      "m101"
     ],
     "gold_signal_names": [
       "db_postgres_switch",
@@ -22,8 +22,8 @@
       "later moved to Postgres"
     ],
     "gold_message_ids": [
-      "m14",
-      "m145"
+      "m10",
+      "m100"
     ],
     "gold_signal_names": [
       "db_mongo_plan",
@@ -38,8 +38,8 @@
       "account added to the key"
     ],
     "gold_message_ids": [
-      "m164",
-      "m165"
+      "m113",
+      "m114"
     ],
     "gold_signal_names": [
       "cache_cause",
@@ -54,8 +54,8 @@
       "shared across tenants"
     ],
     "gold_message_ids": [
-      "m163",
-      "m164"
+      "m112",
+      "m113"
     ],
     "gold_signal_names": [
       "cache_bug",
@@ -70,7 +70,7 @@
       "runs as containers"
     ],
     "gold_message_ids": [
-      "m199"
+      "m137"
     ],
     "gold_signal_names": [
       "deploy_aws_switch"
@@ -84,8 +84,8 @@
       "later moved to AWS"
     ],
     "gold_message_ids": [
-      "m46",
-      "m199"
+      "m33",
+      "m137"
     ],
     "gold_signal_names": [
       "deploy_heroku",
@@ -100,8 +100,8 @@
       "provider rejects a repeat"
     ],
     "gold_message_ids": [
-      "m182",
-      "m183"
+      "m125",
+      "m126"
     ],
     "gold_signal_names": [
       "billing_bug",
@@ -116,7 +116,7 @@
       "use Postgres full text search"
     ],
     "gold_message_ids": [
-      "m111"
+      "m78"
     ],
     "gold_signal_names": [
       "search_decision"
@@ -129,7 +129,7 @@
       "SendGrid"
     ],
     "gold_message_ids": [
-      "m78"
+      "m55"
     ],
     "gold_signal_names": [
       "email_decision"
@@ -143,7 +143,7 @@
       "longer refresh token"
     ],
     "gold_message_ids": [
-      "m31"
+      "m22"
     ],
     "gold_signal_names": [
       "auth_decision"
@@ -156,7 +156,7 @@
       "rotate the refresh token on each use"
     ],
     "gold_message_ids": [
-      "m232"
+      "m159"
     ],
     "gold_signal_names": [
       "auth_refresh_rotate"
@@ -171,9 +171,9 @@
       "switched to Postgres"
     ],
     "gold_message_ids": [
-      "m14",
-      "m145",
-      "m146"
+      "m10",
+      "m100",
+      "m101"
     ],
     "gold_signal_names": [
       "db_mongo_plan",
@@ -189,8 +189,8 @@
       "added read replicas for reports"
     ],
     "gold_message_ids": [
-      "m62",
-      "m216"
+      "m44",
+      "m148"
     ],
     "gold_signal_names": [
       "cache_add",
@@ -204,7 +204,7 @@
       "100 requests per minute per account"
     ],
     "gold_message_ids": [
-      "m127"
+      "m89"
     ],
     "gold_signal_names": [
       "ratelimit_decision"

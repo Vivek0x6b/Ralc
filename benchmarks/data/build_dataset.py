@@ -101,198 +101,214 @@ SIGNALS: dict[str, tuple[str, str]] = {
 }
 
 # --------------------------------------------------------------------------
-# Distractors: everyday chatter. Several reuse signal entity names on purpose
-# so the entity graph has noisy hubs that do not actually answer any question.
-# {n} is filled with a running day counter for light, natural variation.
+# Distractors: everyday chatter, generated so that every message is unique.
+# Many of them reuse the same entity names as the signals (cache, Postgres,
+# AWS, billing, search, SendGrid, Redis, invoices, rate limit) in off-topic
+# ways, so the entity graph has realistic noisy hubs that answer no question.
 # --------------------------------------------------------------------------
-DISTRACTORS: list[tuple[str, str]] = [
-    ("user", "Standup, day {n}. I spent most of yesterday on the account settings screen "
-             "and I will keep chipping away at it today. Nothing is blocking me right now. "
-             "The only real news is that the office coffee machine is making a truly "
-             "alarming grinding noise again, and I have a bad feeling it is going to die "
-             "in the middle of a Monday when we can least afford to lose it. Someone with "
-             "a facilities contact might want to get ahead of that before it is a crisis."),
-    ("assistant", "Standup, day {n}. I cleared out a big pile of small review comments and "
-                  "bumped a few dependencies to their latest patch versions, nothing scary. "
-                  "No blockers on my side. I will be out for a dentist appointment right "
-                  "after lunch, so if anything urgent comes up this afternoon please ping me "
-                  "on chat rather than expecting me in the room. I should be back online by "
-                  "the end of the day to pick up anything that piled up."),
-    ("user", "Does anyone want to grab lunch at the Thai place around the corner today? I am "
-             "genuinely starving and I could really use twenty minutes away from staring at "
-             "the invoice list code, which is starting to blur together. We could also try "
-             "the new sandwich spot that opened across from the pharmacy if people are tired "
-             "of the usual rotation. Reply here in the next half hour and I will put our "
-             "name down for a table so we are not standing around waiting."),
-    ("assistant", "I cannot do lunch today, I packed something sad and responsible, but "
-                  "please save me a seat for the team dinner on Thursday. Are we still doing "
-                  "the place near the station, or did we decide it was too loud last time? "
-                  "I remember half the table could not hear the other half. If someone wants "
-                  "to pick somewhere quieter I am completely on board, I just want to know "
-                  "before I tell my ride what time to grab me."),
-    ("user", "Reminder that the all hands got moved to three o'clock on Friday because the "
-             "big conference room was double booked by the sales team again. Calendar invites "
-             "went out this morning with the updated time, so please let me know if yours did "
-             "not refresh. There will be the usual roadmap recap and a short section on "
-             "hiring. If you have a topic you want raised during the open questions part, "
-             "drop it in the shared doc so we can keep things moving on the day."),
-    ("assistant", "The little Postgres elephant sticker on my laptop is peeling off at the "
-                  "corner and it is bugging me far more than any reasonable person should be "
-                  "bugged by a sticker. Does anyone remember where we got the batch from at "
-                  "the last conference? I want a fresh one, and honestly I would grab a "
-                  "handful for the new folks too. It is a small thing but a clean laptop lid "
-                  "makes the whole day feel slightly more under control."),
-    ("user", "The weather looks genuinely grim for the weekend hike, the forecast is nothing "
-             "but rain from Friday night straight through Sunday afternoon. I think we should "
-             "push it a week rather than slog through the mud and be miserable. I will start "
-             "a thread so people can vote on the backup date, and if the following weekend "
-             "does not work for enough people we can just aim for later in the month when "
-             "things dry out. No sense forcing it and having everyone catch a cold."),
-    ("assistant", "Whoever keeps leaving dishes in the sink in the kitchen, this is your "
-                  "gentle and only slightly passive aggressive reminder that the dishwasher "
-                  "exists and is in fact extremely good at its one job. It takes about ten "
-                  "seconds to load a mug. The cleaning crew has started leaving notes, and I "
-                  "would rather we sort it out among ourselves than get a stern email from "
-                  "building management about kitchen hygiene for the third quarter running."),
-    ("user", "I finally cleaned up my browser tabs this morning and discovered three "
-             "different tickets I had completely forgotten I was assigned. One of them is "
-             "probably stale enough to close outright. Housekeeping is officially done for the "
-             "quarter and I refuse to do it again until next year. If anyone else is hoarding "
-             "a hundred open tabs like I was, consider this your sign to take ten minutes and "
-             "declare bankruptcy on the ones you are never actually going to read."),
-    ("assistant", "Did everyone catch the game last night? That ending was something else "
-                  "entirely, I was on my feet shouting at the television like it could hear "
-                  "me. I lost a small and very friendly bet to my neighbor over it and I am "
-                  "still a little annoyed, mostly at myself for betting against the obvious. "
-                  "Anyway, if you have no idea what I am talking about, do not worry, normal "
-                  "programming resumes immediately and I will stop cluttering the channel."),
-    ("user", "The new hire starts Monday and I want their first week to go smoothly. Can "
-             "someone volunteer to be their buddy, show them around, and walk them through how "
-             "we actually ship things and where the Redis and cache dashboards live so they "
-             "are not guessing? It helps enormously to have one named person to ask the dumb "
-             "questions to instead of broadcasting every little thing. I will set up the "
-             "accounts and laptop ahead of time so day one is not just paperwork and waiting."),
-    ("assistant", "Coffee order for the afternoon run, I am heading out in about ten minutes "
-                  "and happy to be the mule. I am getting my usual oat milk thing. Reply here "
-                  "if you want me to grab you something while I am out, and please be specific "
-                  "because last time I guessed on someone's order and got it comprehensively "
-                  "wrong. If the line at the good place is out the door again I will fall back "
-                  "to the chain on the corner, which is fine but not exciting."),
-    ("user", "My personal AWS account sent me a genuinely scary looking bill this month "
-             "because I left a toy project running since the spring and forgot about it. This "
-             "is completely unrelated to work and I am mostly just venting into the void here, "
-             "but let this be your reminder to go check your own side projects before the "
-             "month closes. A tiny instance you forgot about will quietly bleed money for "
-             "half a year and you will only notice when the statement makes you wince."),
-    ("assistant", "Fun fact I learned today that has absolutely nothing to do with anything "
-                  "we are building: octopuses have three hearts, and two of them stop beating "
-                  "when the animal swims, which is apparently why they would rather crawl. I "
-                  "found this out going down a late night reading hole instead of sleeping "
-                  "like a responsible adult. That is my entire contribution to the channel "
-                  "today, and now I will get back to the actual work, I promise this time."),
-    ("user", "The parking garage is closed for resurfacing all of next week, so plan to use "
-             "the overflow lot across the street instead. Fair warning that the lot is a "
-             "genuine walk, maybe eight or ten minutes, and there is no cover, so bring an "
-             "umbrella if the sky looks even slightly threatening. Carpooling might be worth "
-             "it for anyone who lives in the same direction. The garage should reopen the "
-             "following Monday, assuming the work does not slip, which with these things it "
-             "usually does."),
-    ("assistant", "I spent twenty minutes updating the team wiki page about the on call "
-                  "rotation because it was wildly out of date and still listed two people who "
-                  "left the company last year. It now reflects the actual humans who are "
-                  "actually reachable. Please have a look when you get a chance and fix your "
-                  "own contact details if they are wrong, because the whole thing only works "
-                  "if the page is trustworthy at two in the morning when nobody wants to be "
-                  "guessing who to wake up."),
-    ("user", "Does anyone have a good recommendation for a standing desk that does not cost a "
-             "fortune? My back is really not enjoying this sprint and I have reached the point "
-             "where I am ready to spend real money to fix it rather than keep complaining. "
-             "Bonus points if it is one with a memory setting so I do not have to fiddle with "
-             "the height every single morning. If the company has a stipend for this kind of "
-             "thing I have completely failed to find the policy, so a pointer there would help "
-             "too."),
-    ("assistant", "Friendly reminder to submit your expense reports before the end of the "
-                  "month, because finance gets understandably grumpy when they trickle in "
-                  "late and I genuinely do not blame them for it. It takes five minutes and a "
-                  "few photos of receipts. If you lost a receipt there is a form for that, ask "
-                  "me and I will send the link. The sooner everyone clears theirs the sooner "
-                  "we all get reimbursed, so it is honestly in your own interest to not let it "
-                  "sit."),
-    ("user", "The search for a conference room microphone that does not make everyone sound "
-             "like they are phoning in from inside a tin can continues into its second month. "
-             "The current one is a menace to remote attendees. If anyone has used a decent one "
-             "at a previous company, please shout, because I am about to start reading reviews "
-             "at random and ordering whatever has four stars, which is rarely a winning "
-             "strategy. Good audio does more for a meeting than almost anything else and ours "
-             "is actively sabotaging us."),
-    ("assistant", "I am taking Friday off to visit family out of town, so I will hand off my "
-                  "open reviews to whoever is around and has the spare cycles. Nothing is on "
-                  "fire on my end, it is all the usual cleanup and a couple of low risk "
-                  "changes that can wait until Monday if they need to. I will have my phone if "
-                  "something truly breaks, but please treat that as a genuine emergency line "
-                  "and not a convenient way to ask me where a config file lives."),
-    ("user", "Small appreciation post because it is Friday and we do not do enough of these: "
-             "thank you to whoever quietly fixed the flaky test that had been failing on my "
-             "machine roughly every third run for two weeks. I was genuinely about to throw "
-             "the laptop out of the window, and now the suite is green and calm and I can "
-             "trust it again. It is the kind of unglamorous work that nobody notices until it "
-             "is done, so I am noticing it loudly here. Drinks are on me next time."),
-    ("assistant", "The plants in the corner by the big window are looking pretty rough, a "
-                  "couple of them are more brown than green at this point. If you walk past, "
-                  "give them a splash of water, because nobody seems to officially own them "
-                  "and they are slowly dying of collective neglect. I would adopt them myself "
-                  "but I have a documented history of killing even the hardy ones. Maybe we "
-                  "start a very low stakes watering rotation, one week each, nothing serious."),
-    ("user", "Trivia night at the usual bar is on again this Wednesday and I would like us to "
-             "show up in force. Last time we came in a bitter second to the team from "
-             "accounting, who were insufferable about it, and I would very much like to "
-             "reclaim our honor and the small bar tab that comes with first place. We are "
-             "historically strong on geography and weak on pop music, so if anyone here "
-             "secretly follows the charts, you are exactly the ringer we need. Starts at "
-             "seven, come hungry."),
-    ("assistant", "Heads up that building security is testing the fire alarms tomorrow "
-                  "morning somewhere between nine and eleven, so please do not panic and "
-                  "sprint for the stairs when it goes off, it is scheduled maintenance and not "
-                  "a drill or a real emergency for once. They say it will be short bursts "
-                  "rather than one long blast. If you are on a customer call, you might want "
-                  "to mute preemptively, because the alarm is loud enough to end a conversation "
-                  "whether you want it to or not."),
+_NAMES = ["Priya", "Sam", "Diego", "Mei", "Jordan", "Aisha", "Tom", "Lena",
+          "Omar", "Riya", "Chen", "Noah", "Kira", "Raj", "Sofia", "Will",
+          "Hana", "Marcus", "Ivy", "Dana"]
+_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+_FOODS = ["ramen", "tacos", "pho", "burritos", "dumplings", "falafel", "pizza",
+          "curry", "sushi", "bibimbap", "pad thai", "sandwiches", "poke", "gyros"]
+_PLACES = ["the Thai place", "the new deli", "the food truck by the park",
+           "the ramen counter", "the cafe on Fifth", "the burger joint",
+           "the salad spot", "the taqueria", "the noodle bar", "the bakery",
+           "the diner", "the dumpling house"]
+_HOBBIES = ["bouldering", "cycling", "pottery", "board games", "running",
+            "baking", "chess", "photography", "hiking", "yoga", "painting",
+            "gardening", "birdwatching", "climbing"]
+_TEAMS = ["accounting", "the design team", "marketing", "the sales crew",
+          "the ops team", "the data team", "the interns", "the support desk",
+          "the mobile team", "the platform team"]
+_ENTITIES = [
+    "the meeting room someone keeps renaming to the cache",
+    "my personal AWS bill from a forgotten side project",
+    "the Postgres elephant sticker everyone has but me",
+    "the billing team two floors down who hog the good room",
+    "an Elasticsearch meetup happening downtown",
+    "the SendGrid newsletter I subscribed to by accident years ago",
+    "a tiny Redis plushie someone left on the printer",
+    "the metaphorical pile of invoices in my inbox",
+    "the office wifi that seems to have its own rate limit",
+    "my endless search for a parking spot",
+    "the read replica of my to-do list that never syncs",
+    "the Heroku hoodie I won and never wear",
 ]
+
+_ASIDES = [
+    "On a separate note, the coffee machine situation remains dire and I have developed opinions about it that nobody asked me to share.",
+    "Unrelated, but if someone finds a blue pen wandering the office, it is mine and it has survived three laptops and counting.",
+    "Side thought, the elevator music has looped the same tune all week and it is quietly rewriting the inside of my skull.",
+    "Separately, whoever disguised the wifi password as a cryptic riddle, I respect the artistry and resent the daily inconvenience equally.",
+    "In other news, my plant at home is thriving while the office ones wilt, which surely says something I am not ready to hear.",
+    "Tangent, the new chairs manage to be worse than the old chairs, a genuine achievement I did not believe was physically possible.",
+    "Totally aside, I keep misreading the renamed meeting room as the cache and marching confidently to entirely the wrong floor.",
+    "Off topic, my phone autocorrects Postgres to postgrad every single time and at this point I have simply surrendered to it.",
+    "Separately, the parking lot remains a daily negotiation with fate and one extremely territorial pigeon who was clearly there first.",
+    "On another note, my personal AWS bill and I are no longer on speaking terms after last month's quiet and expensive betrayal.",
+    "Unrelated, the office plants have unionized in spirit if not in fact, and frankly their list of demands seems pretty reasonable.",
+    "Side note, I finally labeled my lunch in the fridge, which feels like the most responsible adult thing I have done all quarter.",
+    "Aside, the SendGrid newsletter I subscribed to by accident years ago still arrives weekly and I have grown oddly fond of it.",
+    "Separately, someone keeps borrowing the good stapler and returning it slightly worse, which is somehow more sinister than just keeping it.",
+    "In passing, the stairwell smells aggressively of someone's lunch and I have theories but no proof and no real desire for either.",
+    "Tangent, my search for a decent desk lamp has entered its third week and I am starting to seriously question my own standards.",
+    "Off topic, the Redis plushie on the printer acquired a tiny hat overnight and nobody is claiming responsibility for the upgrade.",
+    "Separately, I rate the new hand soap a solid seven, docking points only for the aggressively artificial green apple situation.",
+    "On a side note, the billing team downstairs got a popcorn machine and the smell drifts up here like a taunt every afternoon.",
+    "Unrelated, I have started taking the long way to the kitchen just to hit my step count, and I already regret telling you this.",
+    "Aside, the whiteboard markers are all mysteriously dead again, a recurring tragedy that honestly deserves its own small memorial.",
+    "Separately, my calendar and I disagree about how many meetings a human can attend before becoming a ghost, and it is winning.",
+    "In other news, the vending machine now accepts taps, a leap forward that has dangerously lowered the barrier to buying chips.",
+    "Off topic, I found a sticky note from my first week that just says be brave, and I have no memory of why, but I am keeping it.",
+]
+
+_TEMPLATES: list[tuple[str, str]] = [
+    ("user", "Sprint {wk} check in: I pushed on the account settings screen and I am not "
+             "blocked. Unrelated, but {entity} has been living in my head today and quietly "
+             "derailing me, so if you catch me staring into the middle distance, that is why."),
+    ("assistant", "Sprint {wk} note: reviews cleared, a couple of dependencies bumped, no "
+                  "blockers. I am out after lunch, {name} kindly agreed to cover anything "
+                  "urgent, so route the fires their way and the rest can wait until I am back."),
+    ("user", "Anyone want {food} at {place} today? I badly need to step away from the screen, "
+             "and {name} is in if we leave before the {day} rush turns the place into a zoo."),
+    ("assistant", "Cannot do lunch, but save me a seat at the team dinner on {day}. Last time "
+                  "{place} was so loud that {name} and I gave up and mimed across the table, "
+                  "which was its own kind of fun but genuinely not how I want to catch up."),
+    ("user", "Heads up, the all hands slid to {day} afternoon because the big room got double "
+             "booked by {team} again. Invites are updated, so ping {name} if yours did not move."),
+    ("assistant", "Does anyone remember where we got {entity}? I would like one, and I would "
+                  "happily grab a few extras for the people starting next {day} so they feel "
+                  "properly welcomed and not like they wandered in off the street by mistake."),
+    ("user", "The weekend forecast looks rough, so {name} and I want to push the {hobby} plan "
+             "to the following {day}. I will open a thread to pick a backup, no pressure at all."),
+    ("assistant", "Kitchen reminder: the dishwasher exists and is excellent at its one job. "
+                  "{name} is innocent this round, but the sink has become a modern art piece "
+                  "and the cleaning crew has started leaving notes that are getting pointed."),
+    ("user", "Cleaned up my browser tabs and found three forgotten tickets, plus a tab about "
+             "{entity} that explains a surprising amount about how my whole week has gone."),
+    ("assistant", "Did anyone catch the match last night? {team} fell apart at the very end, "
+                  "and now {name} owes me a {food} lunch, which I fully intend to collect on {day}."),
+    ("user", "The new hire starts {day}. Can someone be their buddy, show them the ropes, where "
+             "the dashboards live, and how we ship? {name} set a high bar doing it last time."),
+    ("assistant", "Coffee run in ten minutes, heading past {place}. {name} wants the usual. "
+                  "Shout if you want anything, and please be specific, because my guesses have a "
+                  "genuinely terrible track record and I refuse to take the blame again."),
+    ("user", "Please file your expenses before month end. {name} in finance gets rightfully "
+             "grumpy when they trickle in late, and honestly I would be grumpy too in their shoes."),
+    ("assistant", "My back has filed a formal complaint about this chair. Anyone have a standing "
+                  "desk they love? {name} swears by theirs, though it costs about as much as a "
+                  "serious {hobby} habit, which is either a warning or a dare depending on the day."),
+    ("user", "Trivia at the usual bar on {day}. We lost to {team} last time and I want our honor "
+             "back. We are strong on geography and weak on pop music, so ringers are very welcome."),
+    ("assistant", "Security is testing the fire alarms on {day} morning, so do not sprint for the "
+                  "exits when it blares. {name} got startled last year and sent a coffee clean "
+                  "across standup, an incident we lovingly bring up at every possible opportunity."),
+    ("user", "The garage is closed next week, use the lot across the street. It is a walk, bring "
+             "an umbrella, and maybe carpool with {name} if you are coming from the same direction."),
+    ("assistant", "Appreciation for {name}, who quietly killed the flaky test that haunted me for "
+                  "a {hobby}-length stretch of afternoons. The suite is calm again and so am I, "
+                  "finally. Drinks on me on {day}, and that is a firm promise, not a vague gesture."),
+    ("user", "The window plants are dying of neglect, so {name} and I are starting a very low "
+             "stakes watering rotation, one {day} each. Join us, the bar for entry is on the floor."),
+    ("assistant", "Fell down a reading hole last night instead of sleeping and learned that sea "
+                  "otters hold hands so they do not drift apart. {name}, this is your daily dose of "
+                  "nothing to do with work, and now back to the grind I reluctantly return."),
+    ("user", "{name} is organizing a {hobby} outing on {day} for anyone keen. No pressure, but it "
+             "has been a long stretch and a change of scenery somewhere past {place} would do us good."),
+    ("assistant", "The conference room mic still makes everyone sound like a drive through order. "
+                  "{name} is hunting for a replacement, recommendations welcome, our remote folks "
+                  "have suffered long enough and are beginning to take the audio quality personally."),
+    ("user", "Quick poll: {food} or {food2} for the team lunch on {day}? {name} cannot eat one of "
+             "them, so if it is close let us be kind and quietly pick the other one without a debate."),
+    ("assistant", "Taking {day} off to see family. {name} will cover my reviews. Nothing is on fire, "
+                  "just routine cleanup, and I will keep my phone on for genuine emergencies only, "
+                  "which firmly does not include asking me where a particular config file lives."),
+    ("user", "Someone left {entity} near the kitchen and it has been sitting there for days now. "
+             "If it is yours, please rescue it before the cleaning crew stages a quiet intervention."),
+    ("assistant", "The coffee machine is making the alarming noise again. {name} gives it maybe a "
+                  "{day} before it quits for good. Can facilities look before it dies mid morning and "
+                  "we are all forced to be our unfiltered, uncaffeinated selves in the standup?"),
+    ("user", "Shout out to {name} for a great onboarding session. We hit the basics and somehow "
+             "ended up deep in {entity}, which the new folks found weirdly fascinating, bless them."),
+    ("assistant", "The {hobby} club meets {day} after work and {name} is bringing spare gear for "
+                  "anyone who wants to try before buying. Low commitment, high fun, mild bruising."),
+    ("user", "Fixed my home setup after wrestling with it all {day}. Totally unrelated to work, but "
+             "it reminded me how rare and lovely it is when a thing just works on the very first try."),
+    ("assistant", "The vending machine ate {name}'s money again and I witnessed the whole quiet "
+                  "tragedy unfold. Facilities has been emailed. I will not rest until justice, or at "
+                  "the very least a refunded bag of pretzels, is finally served to the people."),
+    ("user", "Weekend recap: I tried {hobby} for the first time and it went about as well as you "
+             "would expect. Ask {name} for the deeply unflattering photos. Would humiliate myself again."),
+    ("assistant", "Can we stop booking meetings over lunch on {day}? {name} and I keep choosing "
+                  "between {food} and being informed, and that is a genuinely cruel thing to do to people."),
+    ("user", "The elevator is out until {day}, so it is stairs only for now. {name} says we are all "
+             "getting our steps in, which is the kind of relentless optimism I admire and find exhausting."),
+    ("assistant", "Started a book club, the first pick is short so nobody panics. {name} is in, we "
+                  "meet {day} at the cafe near {place}. Newcomers very welcome, strong opinions optional."),
+    ("user", "Anyone know a good dentist nearby? Mine retired and {name} recommended theirs, but it "
+             "is a {hobby}-sized trek across town and I am not convinced my molars are worth the commute."),
+    ("assistant", "Parking tip from {name}, discovered entirely by accident: the lot near {place} is "
+                  "free after six. Filing that away for the next late crunch, not that we would ever plan one."),
+]
+
+
+def _distractor(i: int) -> tuple[str, str]:
+    role, template = _TEMPLATES[i % len(_TEMPLATES)]
+    fills = {
+        "name": _NAMES[(i * 3 + 1) % len(_NAMES)],
+        "day": _DAYS[(i * 2) % len(_DAYS)],
+        "food": _FOODS[(i * 5) % len(_FOODS)],
+        "food2": _FOODS[(i * 5 + 3) % len(_FOODS)],
+        "place": _PLACES[(i * 4 + 2) % len(_PLACES)],
+        "hobby": _HOBBIES[(i * 6 + 1) % len(_HOBBIES)],
+        "team": _TEAMS[(i * 7 + 3) % len(_TEAMS)],
+        "entity": _ENTITIES[(i * 3 + 2) % len(_ENTITIES)],
+        "wk": i,
+    }
+    body = template.format(**fills)
+    aside1 = _ASIDES[(i * 11 + 5) % len(_ASIDES)]
+    aside2 = _ASIDES[(i * 7 + 2) % len(_ASIDES)]
+    if aside1 == aside2:
+        aside2 = _ASIDES[(i * 7 + 3) % len(_ASIDES)]
+    return role, f"{body} {aside1} {aside2}"
+
 
 # --------------------------------------------------------------------------
 # Timeline: the chronological skeleton. ("sig", name) emits a signal;
 # ("fill", k) emits k distractors from the pool.
 # --------------------------------------------------------------------------
 TIMELINE: list[tuple[str, object]] = [
-    ("fill", 14),
+    ("fill", 10),
     ("sig", "db_mongo_plan"), ("sig", "db_mongo_ack"),
-    ("fill", 15),
+    ("fill", 10),
     ("sig", "auth_decision"),
-    ("fill", 14),
+    ("fill", 10),
     ("sig", "deploy_heroku"),
-    ("fill", 15),
+    ("fill", 10),
     ("sig", "cache_add"),
-    ("fill", 15),
+    ("fill", 10),
     ("sig", "email_decision"),
-    ("fill", 14),
+    ("fill", 10),
     ("sig", "billing_job"),
-    ("fill", 16),
+    ("fill", 10),
     ("sig", "search_consider"), ("sig", "search_decision"),
-    ("fill", 15),
+    ("fill", 10),
     ("sig", "ratelimit_decision"),
-    ("fill", 17),
+    ("fill", 10),
     ("sig", "db_postgres_switch"), ("sig", "db_postgres_reason"),
-    ("fill", 16),
+    ("fill", 10),
     ("sig", "cache_bug"), ("sig", "cache_cause"), ("sig", "cache_fix"),
-    ("fill", 16),
+    ("fill", 10),
     ("sig", "billing_bug"), ("sig", "billing_fix"),
-    ("fill", 15),
+    ("fill", 10),
     ("sig", "deploy_aws_switch"),
-    ("fill", 16),
+    ("fill", 10),
     ("sig", "db_replicas"),
-    ("fill", 15),
+    ("fill", 10),
     ("sig", "auth_refresh_rotate"),
-    ("fill", 14),
+    ("fill", 10),
 ]
 
 # --------------------------------------------------------------------------
@@ -350,8 +366,8 @@ QUESTIONS: list[dict] = [
 def build():
     messages: list[dict] = []
     name_to_id: dict[str, str] = {}
+    seen_contents: set[str] = set()
     fill_index = 0
-    day = 0
 
     def emit(role: str, content: str) -> str:
         node_id = f"m{len(messages)}"
@@ -359,11 +375,14 @@ def build():
         return node_id
 
     def emit_distractor():
-        nonlocal fill_index, day
-        role, template = DISTRACTORS[fill_index % len(DISTRACTORS)]
-        fill_index += 1
-        day += 1
-        emit(role, template.format(n=day) if "{n}" in template else template)
+        nonlocal fill_index
+        while True:
+            role, content = _distractor(fill_index)
+            fill_index += 1
+            if content not in seen_contents:
+                seen_contents.add(content)
+                emit(role, content)
+                return
 
     for kind, value in TIMELINE:
         if kind == "sig":
@@ -375,6 +394,14 @@ def build():
 
     counter = DefaultTokenCounter()
     total = sum(counter.count(m["content"]) for m in messages)
+    # Top up with unique distractors (appended after all signals, so the gold
+    # ids stay stable) until the conversation clears the token target.
+    while total < TOKEN_TARGET:
+        emit_distractor()
+        total += counter.count(messages[-1]["content"])
+
+    unique = len({m["content"] for m in messages})
+    assert unique == len(messages), f"messages are not all unique: {unique}/{len(messages)}"
     assert total >= 20000, f"conversation is only {total} tokens, need at least 20000"
 
     def total_tokens() -> int:
@@ -394,6 +421,7 @@ def build():
     (HERE / "questions.json").write_text(json.dumps(questions, indent=2), encoding="utf-8")
 
     print(f"messages: {len(messages)}")
+    print(f"unique messages: {len({m['content'] for m in messages})}")
     print(f"tokens (cl100k_base, approximate={counter.approximate}): {total_tokens()}")
     print(f"questions: {len(questions)}")
     print(f"vector_friendly questions: {sum(q['vector_friendly'] for q in QUESTIONS)}")
