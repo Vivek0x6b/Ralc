@@ -60,17 +60,21 @@ class RelationalExpander:
         self.strategy = strategy
         self.config = config or ExpansionConfig()
         self._degree_cache: dict[str, int] = {}
+        # Real stats from the most recent expand() call, for the demo dashboard.
+        self.last_stats: dict[str, int] = {"nodes_visited": 0}
 
     def expand(self, seeds: list[tuple[str, float]]) -> list[Candidate]:
         if not seeds:
+            self.last_stats = {"nodes_visited": 0}
             return []
         for node_id, _ in seeds:
             self.graph.get(node_id)   # raises KeyError if a seed is missing
         seed_scores = {node_id: score for node_id, score in seeds}
         if self.strategy == "hop_decay":
-            scored = self._hop_decay(seeds)
+            scored, visited = self._hop_decay(seeds)
         else:
-            scored = self._ppr(seed_scores)
+            scored, visited = self._ppr(seed_scores)
+        self.last_stats = {"nodes_visited": len(visited)}
         return self._finalize(scored, seed_scores)
 
     # -- hop_decay ---------------------------------------------------------
@@ -79,6 +83,7 @@ class RelationalExpander:
         cfg = self.config
         # best[node] = (value, path, edge_types)
         best: dict[str, tuple[float, list[str], list[str]]] = {}
+        touched: set[str] = set()
 
         def consider(node_id, value, path, etypes):
             current = best.get(node_id)
@@ -88,6 +93,7 @@ class RelationalExpander:
             return False
 
         def dfs(node_id, value, hops, path, etypes, visited):
+            touched.add(node_id)
             consider(node_id, value, path, etypes)
             source_is_entity = self.graph.get(node_id).type == _ENTITY_TYPE
             neighbors = sorted(
@@ -127,7 +133,8 @@ class RelationalExpander:
         for node_id, score in sorted(seeds, key=lambda s: (-s[1], s[0])):
             dfs(node_id, score, 0, [node_id], [], {node_id})
 
-        return {nid: (val, path, etypes) for nid, (val, path, etypes) in best.items()}
+        scored = {nid: (val, path, etypes) for nid, (val, path, etypes) in best.items()}
+        return scored, touched
 
     def _penalty(self, node_id: str) -> float:
         return 1.0 / math.log(self.config.hub_log_base + self._degree(node_id))
@@ -163,10 +170,11 @@ class RelationalExpander:
             personalization = {node: (1.0 if node in seed_scores else 0.0) for node in undirected}
         ranks = nx.pagerank(undirected, personalization=personalization, weight="weight")
 
-        return {
+        scored = {
             node_id: (ranks[node_id], [node_id], [])
             for node_id in reachable
         }
+        return scored, reachable
 
     # -- shared finalization ----------------------------------------------
 

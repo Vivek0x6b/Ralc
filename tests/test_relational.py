@@ -309,6 +309,37 @@ def test_end_to_end_relational_find_through_entity():
     assert m1 not in out
 
 
+def test_hop_decay_records_nodes_visited_including_bridges():
+    g = ContextGraph()
+    g.add_node(_msg("s"))
+    g.add_node(_msg("c"))
+    g.add_node(_entity("e"))
+    g.add_edge(Edge("s", "e", "MENTIONS", weight=0.5))
+    g.add_edge(Edge("c", "e", "MENTIONS", weight=0.5))
+    cfg = ExpansionConfig(max_hops=1, hub_penalty=False, edge_types=["MENTIONS"])
+    exp = RelationalExpander(g, "hop_decay", cfg)
+    exp.expand([("s", 1.0)])
+    assert exp.last_stats["nodes_visited"] == 3   # s, e (bridge), c
+
+
+def test_ppr_records_nodes_visited():
+    g = ContextGraph()
+    for nid in ("a", "b", "z"):
+        g.add_node(_msg(nid))
+    g.add_edge(Edge("a", "b", "REL", weight=1.0))   # z disconnected
+    exp = RelationalExpander(g, "ppr", ExpansionConfig())
+    exp.expand([("a", 1.0)])
+    assert exp.last_stats["nodes_visited"] == 2     # a, b; z excluded
+
+
+def test_empty_seeds_record_zero_visited():
+    g = ContextGraph()
+    g.add_node(_msg("s"))
+    exp = RelationalExpander(g, "hop_decay", ExpansionConfig())
+    exp.expand([])
+    assert exp.last_stats["nodes_visited"] == 0
+
+
 def test_candidate_is_dataclass_shape():
     c = Candidate(node_id="x", score=1.0, path=["x"], path_edge_types=[], is_seed=True, seed_score=1.0)
     assert (c.node_id, c.score, c.is_seed, c.seed_score) == ("x", 1.0, True, 1.0)

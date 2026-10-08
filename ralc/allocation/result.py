@@ -21,3 +21,15 @@ class ContextResult:
     token_count: int
     relationships: list[Edge]
     metadata: dict = field(default_factory=dict)
+
+    def to_text(self) -> str:
+        """Format the selected nodes as plain text for a prompt.
+
+        Each node is rendered as ``"{role}: {content}"`` (or just the content
+        when it has no role) in conversation order. The query is never included.
+        """
+        lines = []
+        for node in self.nodes:
+            role = node.metadata.get("role")
+            lines.append(f"{role}: {node.content}" if role else node.content)
+        return "\n\n".join(lines)
