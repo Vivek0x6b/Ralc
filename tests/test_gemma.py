@@ -237,7 +237,10 @@ _LIVE = os.environ.get("GEMINI_API_KEY") and os.environ.get("RALC_LIVE_TESTS") =
 
 @pytest.mark.skipif(not _LIVE, reason="requires GEMINI_API_KEY and RALC_LIVE_TESTS=1")
 def test_live_gemma_extraction():
-    ex = GemmaExtractor()
+    # strict=True raises on any API or parse error, so this can never pass via
+    # the heuristic fallback: it only passes on a genuine Gemma response.
+    ex = GemmaExtractor(strict=True)
     s = ex.extract(Message("user", "We decided to use PostgreSQL for storage."))
     assert isinstance(s.entities, list)
     assert isinstance(s.is_decision, bool)
+    assert ex.stats["fallbacks"] == 0
