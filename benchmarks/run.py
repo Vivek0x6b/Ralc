@@ -21,7 +21,7 @@ from pathlib import Path
 from ralc import ContextManager
 from ralc.allocation.budget import DefaultTokenCounter
 from ralc.embeddings.local import SentenceTransformerEmbedder
-from ralc.extraction import GemmaExtractor, HeuristicExtractor, Message
+from ralc.extraction import GemmaExtractor, HeuristicExtractor, Message, hybrid_signals
 from ralc.retrieval.relational import RelationalExpander
 
 from benchmarks.gemma_cache import (
@@ -181,12 +181,22 @@ def main(argv=None):
         failures = load_failures()
         texts = extraction_texts(messages, questions)
         heuristic = HeuristicExtractor()
+        plain_keyer = GemmaExtractor(model=GEMMA_MODEL, hybrid=False)
         for name, hybrid in (("ralc_gemma", False), ("ralc_hybrid", True)):
             if name not in selected_set:
                 continue
             print(f"Group: {name}", flush=True)
             extractor = GemmaExtractor(model=GEMMA_MODEL, hybrid=hybrid, strict=True,
                                        cache=cache, max_retries=5, retry_base_delay=2.0)
+            # Hybrid is derived locally from the cached plain-Gemma output plus
+            # the heuristic (no API call), identical to hybrid mode's own output.
+            if hybrid:
+                for text in texts:
+                    gemma_key = plain_keyer.cache_key(text)
+                    hybrid_key = extractor.cache_key(text)
+                    if gemma_key in cache and hybrid_key not in cache:
+                        cache[hybrid_key] = hybrid_signals(
+                            heuristic.extract(Message("user", text)), cache[gemma_key])
             # Use the heuristic for exactly the strings the warm-up could not get
             # from Gemma, by seeding their cache entries in memory so the strict
             # extractor serves them without an API call.

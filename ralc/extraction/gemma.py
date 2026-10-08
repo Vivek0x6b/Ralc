@@ -36,6 +36,19 @@ Message:
 """
 
 
+def hybrid_signals(heuristic: Signals, gemma: Signals) -> Signals:
+    """Combine heuristic and plain-Gemma signals exactly as hybrid mode does.
+
+    The entity union (heuristic first, then Gemma, normalized) and the OR of the
+    decision flags. Shared so a hybrid result can be derived from cached plain
+    Gemma output with no extra API call.
+    """
+    return Signals(
+        entities=normalize_entities(list(heuristic.entities) + list(gemma.entities)),
+        is_decision=heuristic.is_decision or gemma.is_decision,
+    )
+
+
 class GemmaExtractor:
     def __init__(
         self,
@@ -68,13 +81,7 @@ class GemmaExtractor:
 
         gemma_signals, success = self._gemma_signals(message)
         if self.hybrid:
-            heuristic_signals = self.heuristic.extract(message)
-            result = Signals(
-                entities=normalize_entities(
-                    list(heuristic_signals.entities) + list(gemma_signals.entities)
-                ),
-                is_decision=heuristic_signals.is_decision or gemma_signals.is_decision,
-            )
+            result = hybrid_signals(self.heuristic.extract(message), gemma_signals)
         else:
             result = gemma_signals
 

@@ -20,7 +20,7 @@ import sys
 import time
 from pathlib import Path
 
-from ralc.extraction import GemmaExtractor, Message
+from ralc.extraction import GemmaExtractor, HeuristicExtractor, Message, hybrid_signals
 
 from benchmarks.gemma_cache import (
     GEMMA_MODEL,
@@ -80,10 +80,26 @@ def main():
                            max_retries=5, retry_base_delay=2.0, timeout=60.0)
     _warm_one("gemma", gemma, texts, cache, failures)
 
-    hybrid = GemmaExtractor(model=GEMMA_MODEL, hybrid=True, strict=True, cache=cache,
-                            max_retries=5, retry_base_delay=2.0, timeout=60.0)
-    _warm_one("hybrid", hybrid, texts, cache, failures)
-
+    # Hybrid is just the union of the heuristic and the plain-Gemma signals, so
+    # derive it locally from the cached plain-Gemma output. No extra API calls.
+    heuristic = HeuristicExtractor()
+    hybrid_keyer = GemmaExtractor(model=GEMMA_MODEL, hybrid=True)
+    derived = 0
+    for i, text in enumerate(texts):
+        gemma_key = gemma.cache_key(text)
+        hybrid_key = hybrid_keyer.cache_key(text)
+        if gemma_key in cache:
+            if hybrid_key not in cache:
+                cache[hybrid_key] = hybrid_signals(
+                    heuristic.extract(Message("user", text)), cache[gemma_key])
+                derived += 1
+        else:
+            # Plain Gemma failed for this string, so hybrid cannot be derived.
+            failures.append({"index": i, "mode": "hybrid",
+                             "error": "plain gemma extraction failed", "preview": text[:80]})
+        print(f"[hybrid-derive] {i + 1}/{len(texts)} derived={derived} "
+              f"fails={sum(1 for f in failures if f['mode'] == 'hybrid')}", flush=True)
+    save_gemma_cache(cache)
     save_failures(failures)
     print(f"\nWarm-up complete. failures: {len(failures)} "
           f"(gemma={sum(1 for f in failures if f['mode'] == 'gemma')}, "

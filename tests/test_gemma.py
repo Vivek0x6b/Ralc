@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 from ralc import ContextManager
-from ralc.extraction import GemmaExtractor, HeuristicExtractor, Message
+from ralc.extraction import GemmaExtractor, HeuristicExtractor, Message, hybrid_signals
 from ralc.extraction.base import Extractor, normalize_entities
 
 
@@ -181,6 +181,21 @@ def test_cache_key_includes_model_and_hybrid():
 # --------------------------------------------------------------------------
 # Hybrid, normalization, immutability, retry
 # --------------------------------------------------------------------------
+
+def test_derived_hybrid_equals_real_hybrid():
+    # Deriving hybrid from cached plain-Gemma output plus the heuristic must
+    # match what GemmaExtractor(hybrid=True) produces for the same Gemma output.
+    message = Message("user", "we decided to use cache_key for the lookup")
+    gemma_json = '{"entities": ["gamma_id", "cache_key"], "is_decision": false}'
+
+    real = GemmaExtractor(hybrid=True, client=FakeClient(gemma_json),
+                          retry_base_delay=0.0).extract(message)
+    plain = GemmaExtractor(hybrid=False, client=FakeClient(gemma_json),
+                           retry_base_delay=0.0).extract(message)
+    derived = hybrid_signals(HeuristicExtractor().extract(message), plain)
+
+    assert derived == real
+
 
 def test_hybrid_unions_entities_and_or_decision():
     ex = _ex('{"entities": ["gamma_id"], "is_decision": false}', hybrid=True)
