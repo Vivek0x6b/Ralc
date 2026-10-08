@@ -50,6 +50,18 @@ class SemanticRetriever:
         vector = self.embedder.embed([node.content])[0]
         self._vectors[node_id] = _normalize(vector)
 
+    def embedding(self, node_id: str) -> np.ndarray:
+        """Return the node's L2-normalized embedding, embedding it on demand.
+
+        Used by consumers (such as the context selector's redundancy penalty)
+        that need node-to-node similarity. Raises KeyError if the node is not
+        in the graph.
+        """
+        if node_id not in self._vectors:
+            vector = self.embedder.embed([self.graph.get(node_id).content])[0]
+            self._vectors[node_id] = _normalize(vector)
+        return self._vectors[node_id]
+
     def score(self, query: str, node_ids: list[str]) -> dict[str, float]:
         """Return the cosine between ``query`` and each node in ``node_ids``.
 

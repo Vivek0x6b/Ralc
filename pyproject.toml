@@ -21,6 +21,9 @@ dependencies = [
 embed = [
     "sentence-transformers",
 ]
+tokens = [
+    "tiktoken",
+]
 dev = [
     "pytest",
 ]
