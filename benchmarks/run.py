@@ -9,6 +9,7 @@ benchmarks/warm_gemma_cache.py so this run makes no API calls.
 
 from __future__ import annotations
 
+import argparse
 import gc
 import json
 import os
@@ -30,6 +31,9 @@ HERE = Path(__file__).resolve().parent
 DATA = HERE / "data"
 BUDGETS = [1000, 2000, 4000]
 SEED_K = 10
+CANONICAL_METHODS = ["recent", "vector", "graph", "ralc_heuristic",
+                     "ralc_gemma", "ralc_hybrid", "full"]
+GEMMA_METHODS = {"ralc_gemma", "ralc_hybrid"}
 
 
 def fill_to_budget(ordered_ids, tokens_by_id, budget):
@@ -57,7 +61,16 @@ def ingest_all(manager, messages, label):
                 time.sleep(2 * (attempt + 1))
 
 
-def main():
+def main(argv=None):
+    parser = argparse.ArgumentParser(description="Run the RALC retrieval benchmark.")
+    parser.add_argument(
+        "--methods",
+        help="comma separated subset to run, e.g. "
+             "recent,vector,graph,ralc_heuristic,full. Default: all available. "
+             "gemma_cache.json is read or written only when a gemma method is selected.",
+    )
+    args = parser.parse_args(argv)
+
     messages = json.loads((DATA / "conversation.json").read_text(encoding="utf-8"))
     questions = json.loads((DATA / "questions.json").read_text(encoding="utf-8"))
 
@@ -70,10 +83,21 @@ def main():
     embedder = SentenceTransformerEmbedder()
     has_key = bool(os.environ.get("GEMINI_API_KEY"))
 
-    method_order = ["recent", "vector", "graph", "ralc_heuristic"]
-    if has_key:
-        method_order += ["ralc_gemma", "ralc_hybrid"]
-    method_order += ["full"]
+    available = [m for m in CANONICAL_METHODS if m not in GEMMA_METHODS or has_key]
+    if args.methods:
+        requested = [m.strip() for m in args.methods.split(",") if m.strip()]
+        unknown = [m for m in requested if m not in CANONICAL_METHODS]
+        if unknown:
+            parser.error(f"unknown methods {unknown}; choose from {CANONICAL_METHODS}")
+        need_key = [m for m in requested if m in GEMMA_METHODS and not has_key]
+        if need_key:
+            parser.error(f"methods {need_key} require GEMINI_API_KEY to be set")
+        selected = [m for m in CANONICAL_METHODS if m in requested]
+    else:
+        selected = list(available)
+    selected_set = set(selected)
+    method_order = selected
+    print(f"methods: {method_order}", flush=True)
 
     per_question = [
         {"question": q["question"], "gold_message_ids": q["gold_message_ids"],
@@ -92,15 +116,15 @@ def main():
                 query = q["question"]
                 snapshot = str(query)
                 start = time.perf_counter()
-                selected = fn(query, budget)
+                selected_ids = fn(query, budget)
                 latency = time.perf_counter() - start
                 assert query == snapshot, "the query string was mutated by a method"
                 entry["results"][str(budget)][name] = {
-                    "recall": recall(selected, gold),
-                    "precision": precision(selected, gold),
-                    "tokens": tokens_used(selected, tokens_by_id),
+                    "recall": recall(selected_ids, gold),
+                    "precision": precision(selected_ids, gold),
+                    "tokens": tokens_used(selected_ids, tokens_by_id),
                     "latency": latency,
-                    "selected": sorted(selected),
+                    "selected": sorted(selected_ids),
                 }
                 for metric in ("recall", "precision", "tokens", "latency"):
                     aggregate[budget][name][metric].append(entry["results"][str(budget)][name][metric])
@@ -110,38 +134,46 @@ def main():
             return [n.id for n in manager.retrieve(query, token_budget=budget, seed_k=SEED_K).nodes]
         return run
 
-    # Group 1: the heuristic graph backs recent, vector, graph, and ralc_heuristic.
-    print("Group: heuristic graph (recent, vector, graph, ralc_heuristic)", flush=True)
-    heuristic_mgr = ContextManager(embedder=embedder, extractor=HeuristicExtractor(),
-                                   token_counter=counter)
-    ingest_all(heuristic_mgr, messages, "ralc_heuristic")
-    retriever = heuristic_mgr.retriever
-    graph_expander = RelationalExpander(heuristic_mgr.graph, strategy="hop_decay")
+    if "recent" in selected_set:
+        def method_recent(query, budget):
+            return fill_to_budget(recent_order, tokens_by_id, budget)
+        evaluate("recent", method_recent)
 
-    def method_recent(query, budget):
-        return fill_to_budget(recent_order, tokens_by_id, budget)
+    # The heuristic graph backs vector, graph, and ralc_heuristic.
+    if selected_set & {"vector", "graph", "ralc_heuristic"}:
+        print("Group: heuristic graph", flush=True)
+        heuristic_mgr = ContextManager(embedder=embedder, extractor=HeuristicExtractor(),
+                                       token_counter=counter)
+        ingest_all(heuristic_mgr, messages, "ralc_heuristic")
+        retriever = heuristic_mgr.retriever
+        graph_expander = RelationalExpander(heuristic_mgr.graph, strategy="hop_decay")
 
-    def method_vector(query, budget):
-        scored = retriever.retrieve(query, k=len(all_ids))
-        return fill_to_budget([nid for nid, _ in scored], tokens_by_id, budget)
+        def method_vector(query, budget):
+            scored = retriever.retrieve(query, k=len(all_ids))
+            return fill_to_budget([nid for nid, _ in scored], tokens_by_id, budget)
 
-    def method_graph(query, budget):
-        seeds = retriever.retrieve(query, k=SEED_K)
-        candidates = graph_expander.expand(seeds)
-        ordered = [c.node_id for c in sorted(candidates, key=lambda c: (-c.score, c.node_id))]
-        return fill_to_budget(ordered, tokens_by_id, budget)
+        def method_graph(query, budget):
+            seeds = retriever.retrieve(query, k=SEED_K)
+            candidates = graph_expander.expand(seeds)
+            ordered = [c.node_id for c in sorted(candidates, key=lambda c: (-c.score, c.node_id))]
+            return fill_to_budget(ordered, tokens_by_id, budget)
 
-    evaluate("recent", method_recent)
-    evaluate("vector", method_vector)
-    evaluate("graph", method_graph)
-    evaluate("ralc_heuristic", make_ralc(heuristic_mgr))
-    del heuristic_mgr, retriever, graph_expander
-    gc.collect()
+        if "vector" in selected_set:
+            evaluate("vector", method_vector)
+        if "graph" in selected_set:
+            evaluate("graph", method_graph)
+        if "ralc_heuristic" in selected_set:
+            evaluate("ralc_heuristic", make_ralc(heuristic_mgr))
+        del heuristic_mgr, retriever, graph_expander
+        gc.collect()
 
-    # Group 2 and 3: the Gemma managers (extraction served from the warm cache).
-    if has_key:
+    # Only read or write gemma_cache.json when a Gemma method is selected, so a
+    # concurrent warm-up that owns that file is never disturbed.
+    if selected_set & GEMMA_METHODS:
         cache = load_gemma_cache()
         for name, hybrid in (("ralc_gemma", False), ("ralc_hybrid", True)):
+            if name not in selected_set:
+                continue
             print(f"Group: {name}", flush=True)
             extractor = GemmaExtractor(model=GEMMA_MODEL, hybrid=hybrid, strict=True,
                                        cache=cache, max_retries=6, retry_base_delay=2.0)
@@ -153,7 +185,8 @@ def main():
             del manager, extractor
             gc.collect()
 
-    evaluate("full", lambda query, budget: list(all_ids))
+    if "full" in selected_set:
+        evaluate("full", lambda query, budget: list(all_ids))
 
     def mean(xs):
         return sum(xs) / len(xs) if xs else 0.0
@@ -197,6 +230,7 @@ def render_markdown(result) -> str:
     methods = result["methods"]
     lines = ["# RALC benchmark results", ""]
     lines.append(f"- generated: {result['generated_at']}")
+    lines.append(f"- methods: {', '.join(result['methods'])}")
     lines.append(f"- dataset: {result['dataset']['messages']} messages, "
                  f"{result['dataset']['tokens']} tokens, {result['dataset']['questions']} questions")
     lines.append(f"- embedder: {result['models']['embedder']}; gemma: {result['models']['gemma']}")
