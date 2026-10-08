@@ -50,6 +50,23 @@ class SemanticRetriever:
         vector = self.embedder.embed([node.content])[0]
         self._vectors[node_id] = _normalize(vector)
 
+    def score(self, query: str, node_ids: list[str]) -> dict[str, float]:
+        """Return the cosine between ``query`` and each node in ``node_ids``.
+
+        Nodes not already indexed are embedded on demand (from their graph
+        content) and cached, so non-seed candidates can be scored too. Raises
+        KeyError if a node id is not in the graph. The query is only read.
+        """
+        if not node_ids:
+            return {}
+        query_vector = _normalize(self.embedder.embed([query])[0])
+        missing = [nid for nid in node_ids if nid not in self._vectors]
+        if missing:
+            matrix = self.embedder.embed([self.graph.get(nid).content for nid in missing])
+            for node_id, vector in zip(missing, matrix):
+                self._vectors[node_id] = _normalize(vector)
+        return {node_id: float(self._vectors[node_id] @ query_vector) for node_id in node_ids}
+
     def retrieve(self, query: str, k: int) -> list[tuple[str, float]]:
         """Return the top ``k`` (node_id, cosine score) pairs, highest first.
 
