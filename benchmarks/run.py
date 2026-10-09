@@ -35,7 +35,7 @@ from benchmarks.metrics import precision, recall, tokens_used
 
 HERE = Path(__file__).resolve().parent
 DATA = HERE / "data"
-BUDGETS = [1000, 2000, 4000]
+BUDGETS = {"v1": [1000, 2000, 4000], "v2": [250, 500, 1000, 2000, 4000]}
 SEED_K = 10
 CANONICAL_METHODS = ["recent", "vector", "graph", "ralc_heuristic",
                      "ralc_gemma", "ralc_hybrid", "full"]
@@ -75,10 +75,17 @@ def main(argv=None):
              "recent,vector,graph,ralc_heuristic,full. Default: all available. "
              "gemma_cache.json is read or written only when a gemma method is selected.",
     )
+    parser.add_argument(
+        "--dataset", choices=("v1", "v2"), default="v1",
+        help="which dataset to run (v1 default; v2 is the harder set and adds "
+             "budgets 250 and 500).",
+    )
     args = parser.parse_args(argv)
 
-    messages = json.loads((DATA / "conversation.json").read_text(encoding="utf-8"))
-    questions = json.loads((DATA / "questions.json").read_text(encoding="utf-8"))
+    data_dir = DATA if args.dataset == "v1" else DATA / "v2"
+    budgets = BUDGETS[args.dataset]
+    messages = json.loads((data_dir / "conversation.json").read_text(encoding="utf-8"))
+    questions = json.loads((data_dir / "questions.json").read_text(encoding="utf-8"))
 
     counter = DefaultTokenCounter()
     tokens_by_id = {m["id"]: counter.count(m["content"]) for m in messages}
@@ -107,11 +114,11 @@ def main(argv=None):
 
     per_question = [
         {"question": q["question"], "gold_message_ids": q["gold_message_ids"],
-         "results": {str(b): {} for b in BUDGETS}}
+         "results": {str(b): {} for b in budgets}}
         for q in questions
     ]
     aggregate = {b: {name: {"recall": [], "precision": [], "tokens": [], "latency": []}
-                     for name in method_order} for b in BUDGETS}
+                     for name in method_order} for b in budgets}
     gemma_stats = {}
     heuristic_fallbacks = {}
 
@@ -119,7 +126,7 @@ def main(argv=None):
         print(f"  evaluating {name} ...", flush=True)
         for entry, q in zip(per_question, questions):
             gold = q["gold_message_ids"]
-            for budget in BUDGETS:
+            for budget in budgets:
                 query = q["question"]
                 snapshot = str(query)
                 start = time.perf_counter()
@@ -228,7 +235,7 @@ def main(argv=None):
     aggregate_means = {
         str(b): {name: {k: mean(v[k]) for k in ("recall", "precision", "tokens", "latency")}
                  for name, v in aggregate[b].items()}
-        for b in BUDGETS
+        for b in budgets
     }
 
     versions = {}
@@ -242,8 +249,9 @@ def main(argv=None):
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "models": {"embedder": embedder.model_name, "gemma": GEMMA_MODEL if has_key else None},
         "versions": versions,
+        "dataset_name": args.dataset,
         "dataset": {"messages": len(messages), "tokens": total_tokens, "questions": len(questions)},
-        "budgets": BUDGETS,
+        "budgets": budgets,
         "seed_k": SEED_K,
         "token_counter_approximate": counter.approximate,
         "gemma_stats": gemma_stats,
@@ -255,9 +263,10 @@ def main(argv=None):
 
     RESULTS.mkdir(exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    (RESULTS / f"{stamp}.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
-    (RESULTS / f"{stamp}.md").write_text(render_markdown(result), encoding="utf-8")
-    print(f"\nWrote results/{stamp}.json and results/{stamp}.md")
+    name = f"{args.dataset}-{stamp}"
+    (RESULTS / f"{name}.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+    (RESULTS / f"{name}.md").write_text(render_markdown(result), encoding="utf-8")
+    print(f"\nWrote results/{name}.json and results/{name}.md")
     print("\n" + render_markdown(result))
 
 
@@ -265,6 +274,7 @@ def render_markdown(result) -> str:
     methods = result["methods"]
     lines = ["# RALC benchmark results", ""]
     lines.append(f"- generated: {result['generated_at']}")
+    lines.append(f"- dataset name: {result.get('dataset_name', 'v1')}")
     lines.append(f"- methods: {', '.join(result['methods'])}")
     lines.append(f"- dataset: {result['dataset']['messages']} messages, "
                  f"{result['dataset']['tokens']} tokens, {result['dataset']['questions']} questions")
