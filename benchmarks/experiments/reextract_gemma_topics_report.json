@@ -1,0 +1,63 @@
+{
+  "generated_at": "2026-10-09T12:20:21.187522+00:00",
+  "model": "gemma-4-26b-a4b-it",
+  "mode": "single_calls",
+  "note": "batching abandoned: batched generations deadline at 45s (504); single calls at 45s",
+  "batch_leakage_check": "not applicable: batching was dropped, so there is no batched path to compare against",
+  "unique_strings": 263,
+  "reextraction_stats": {
+    "calls": 12,
+    "fallbacks": 0,
+    "cache_hits": 0,
+    "prompt_tokens": 240,
+    "candidates_tokens": 61,
+    "total_tokens": 2341
+  },
+  "uncached_after_run": 11,
+  "failures": [
+    {
+      "preview": "Did anyone catch the match last night? the interns fell apart at the v",
+      "error": "504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    },
+    {
+      "preview": "Appreciation for Kira, who quietly killed the flaky test that haunted ",
+      "error": "504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    },
+    {
+      "preview": "Heads up, the all hands slid to Thursday afternoon because the big roo",
+      "error": "504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    },
+    {
+      "preview": "The garage is closed next week, use the lot across the street. It is a",
+      "error": "504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    },
+    {
+      "preview": "Taking Sunday off to see family. Ivy will cover my reviews. Nothing is",
+      "error": "504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    },
+    {
+      "preview": "Did anyone catch the match last night? accounting fell apart at the ve",
+      "error": "504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    },
+    {
+      "preview": "The elevator is out until Saturday, so it is stairs only for now. Raj ",
+      "error": "504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    },
+    {
+      "preview": "Heads up, the all hands slid to Monday afternoon because the big room ",
+      "error": "504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    },
+    {
+      "preview": "The garage is closed next week, use the lot across the street. It is a",
+      "error": "504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    },
+    {
+      "preview": "Started a book club, the first pick is short so nobody panics. Priya i",
+      "error": "504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    },
+    {
+      "preview": "Honestly I still wonder if Postgres is overkill for our size. I lost t",
+      "error": "504 DEADLINE_EXCEEDED. {'error': {'code': 504, 'message': 'Deadline expired before operation could complete.', 'status': 'DEADLINE_EXCEEDED'}}"
+    }
+  ]
+}

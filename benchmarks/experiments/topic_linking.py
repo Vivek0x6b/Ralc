@@ -31,9 +31,8 @@ from ralc.extraction.gemma import GemmaExtractor
 from ralc.retrieval.hybrid import RankingConfig
 from ralc.retrieval.relational import ExpansionConfig
 
-from benchmarks.experiments.relational_ablation import CachedGemmaExtractor, qtype, ralc_ids
+from benchmarks.experiments.relational_ablation import CachedGemmaExtractor, ralc_ids
 from benchmarks.gemma_cache import GEMMA_MODEL, load_gemma_cache
-from benchmarks.metrics import recall as recall_metric
 
 HERE = Path(__file__).resolve().parent
 DATA = HERE.parent / "data"
@@ -80,18 +79,21 @@ def topic_similarity(embedder, ta, tb):
     return float((va / na) @ (vb / nb))
 
 
-def complete_story_by_type(manager, questions, budgets):
+def complete_story_by_type(manager, questions, budgets, labels):
+    """Complete-story per the committed amendment: a question is complete when
+    every required_message_id is selected, and the relationship/lookup tag comes
+    from the required set (via question_labels.json)."""
     out = {}
     sel = SelectionConfig(redundancy_exempt_edge_types=EXEMPT)
     for b in budgets:
         out[str(b)] = {}
         for t in ("relationship", "lookup"):
-            rows = [q for q in questions if qtype(q) == t]
+            rows = [q for q in questions if labels[q["question"]]["tag"] == t]
             complete = 0
             for q in rows:
-                ids = ralc_ids(manager, q["question"], b, exp_cfg=ExpansionConfig(),
-                               strategy="hop_decay", rank_cfg=RankingConfig(), sel_cfg=sel)
-                if recall_metric(ids, q["gold_message_ids"]) == 1.0:
+                ids = set(ralc_ids(manager, q["question"], b, exp_cfg=ExpansionConfig(),
+                                   strategy="hop_decay", rank_cfg=RankingConfig(), sel_cfg=sel))
+                if set(labels[q["question"]]["required_message_ids"]) <= ids:
                     complete += 1
             out[str(b)][t] = complete / len(rows) if rows else 0.0
     return out
@@ -119,6 +121,8 @@ def run_dataset(name, embedder, cache, keyer):
     data_dir = DATA / "v2" if name == "v2" else DATA
     messages = json.loads((data_dir / "conversation.json").read_text(encoding="utf-8"))
     questions = json.loads((data_dir / "questions.json").read_text(encoding="utf-8"))
+    labels = {x["question"]: x for x in
+              json.loads((data_dir / "question_labels.json").read_text(encoding="utf-8"))}
     by_id = {m["id"]: m for m in messages}
     counter = DefaultTokenCounter()
     budgets = BUDGETS[name]
@@ -180,12 +184,13 @@ def run_dataset(name, embedder, cache, keyer):
     write_review_file(HERE / f"topic_updates_review_{name}.txt", topic_mgrs[PRIMARY].graph, by_id)
 
     # Complete-story by type with relation-aware selection.
-    cs_entity = complete_story_by_type(entity_mgr, questions, budgets)
-    cs_topic = complete_story_by_type(topic_mgrs[PRIMARY], questions, budgets)
+    cs_entity = complete_story_by_type(entity_mgr, questions, budgets, labels)
+    cs_topic = complete_story_by_type(topic_mgrs[PRIMARY], questions, budgets, labels)
 
     return {
         "budgets": budgets,
-        "counts": {t: sum(1 for q in questions if qtype(q) == t) for t in ("relationship", "lookup")},
+        "counts": {t: sum(1 for q in questions if labels[q["question"]]["tag"] == t)
+                   for t in ("relationship", "lookup")},
         "heuristic_fallbacks": heuristic_fallbacks,
         "updates_counts": updates_counts,
         "pairs": pair_report,

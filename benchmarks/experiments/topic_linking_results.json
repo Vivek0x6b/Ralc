@@ -1,0 +1,381 @@
+{
+  "generated_at": "2026-10-09T12:29:03.506741+00:00",
+  "datasets": {
+    "v1": {
+      "budgets": [
+        1000,
+        2000,
+        4000
+      ],
+      "counts": {
+        "relationship": 6,
+        "lookup": 8
+      },
+      "heuristic_fallbacks": 10,
+      "updates_counts": {
+        "entity_only": 18,
+        "topic_0.50": 23,
+        "topic_0.60": 23,
+        "topic_0.70": 23
+      },
+      "pairs": {
+        "database": {
+          "pair": [
+            "m10",
+            "m100"
+          ],
+          "topics": [
+            "database choice",
+            "moving the main store to Postgres"
+          ],
+          "topic_similarity": 0.23,
+          "clears_threshold": {
+            "0.50": false,
+            "0.60": false,
+            "0.70": false
+          },
+          "entity_only": null,
+          "topic_0.60": null
+        },
+        "hosting": {
+          "pair": [
+            "m33",
+            "m137"
+          ],
+          "topics": [
+            "deployment platform",
+            "migrating app hosting to AWS"
+          ],
+          "topic_similarity": 0.297,
+          "clears_threshold": {
+            "0.50": false,
+            "0.60": false,
+            "0.70": false
+          },
+          "entity_only": {
+            "reason": "entity",
+            "shared_entity": "heroku",
+            "similarity": null
+          },
+          "topic_0.60": {
+            "reason": "entity",
+            "shared_entity": "heroku",
+            "similarity": null
+          }
+        }
+      },
+      "decision_messages": {
+        "m10": {
+          "is_decision": true,
+          "topic": "database choice"
+        },
+        "m100": {
+          "is_decision": true,
+          "topic": "moving the main store to Postgres"
+        },
+        "m33": {
+          "is_decision": true,
+          "topic": "deployment platform"
+        },
+        "m137": {
+          "is_decision": true,
+          "topic": "migrating app hosting to AWS"
+        }
+      },
+      "topic_edges": [
+        {
+          "edge": [
+            "m60",
+            "m20"
+          ],
+          "similarity": 1.0,
+          "topics": [
+            "watering rotation",
+            "watering rotation"
+          ],
+          "source_preview": "The window plants are dying of neglect, so Mei and I are starting a ve",
+          "target_preview": "The window plants are dying of neglect, so Will and I are starting a v"
+        },
+        {
+          "edge": [
+            "m99",
+            "m60"
+          ],
+          "similarity": 1.0,
+          "topics": [
+            "watering rotation",
+            "watering rotation"
+          ],
+          "source_preview": "The window plants are dying of neglect, so Noah and I are starting a v",
+          "target_preview": "The window plants are dying of neglect, so Mei and I are starting a ve"
+        },
+        {
+          "edge": [
+            "m141",
+            "m99"
+          ],
+          "similarity": 1.0,
+          "topics": [
+            "watering rotation",
+            "watering rotation"
+          ],
+          "source_preview": "The window plants are dying of neglect, so Dana and I are starting a v",
+          "target_preview": "The window plants are dying of neglect, so Noah and I are starting a v"
+        },
+        {
+          "edge": [
+            "m177",
+            "m141"
+          ],
+          "similarity": 1.0,
+          "topics": [
+            "watering rotation",
+            "watering rotation"
+          ],
+          "source_preview": "The window plants are dying of neglect, so Lena and I are starting a v",
+          "target_preview": "The window plants are dying of neglect, so Dana and I are starting a v"
+        },
+        {
+          "edge": [
+            "m211",
+            "m177"
+          ],
+          "similarity": 1.0,
+          "topics": [
+            "watering rotation",
+            "watering rotation"
+          ],
+          "source_preview": "The window plants are dying of neglect, so Will and I are starting a v",
+          "target_preview": "The window plants are dying of neglect, so Lena and I are starting a v"
+        }
+      ],
+      "complete_story": {
+        "entity_only": {
+          "1000": {
+            "relationship": 1.0,
+            "lookup": 1.0
+          },
+          "2000": {
+            "relationship": 1.0,
+            "lookup": 1.0
+          },
+          "4000": {
+            "relationship": 1.0,
+            "lookup": 1.0
+          }
+        },
+        "topic_0.60": {
+          "1000": {
+            "relationship": 1.0,
+            "lookup": 1.0
+          },
+          "2000": {
+            "relationship": 1.0,
+            "lookup": 1.0
+          },
+          "4000": {
+            "relationship": 1.0,
+            "lookup": 1.0
+          }
+        }
+      }
+    },
+    "v2": {
+      "budgets": [
+        250,
+        500,
+        1000,
+        2000,
+        4000
+      ],
+      "counts": {
+        "relationship": 9,
+        "lookup": 8
+      },
+      "heuristic_fallbacks": 11,
+      "updates_counts": {
+        "entity_only": 18,
+        "topic_0.50": 23,
+        "topic_0.60": 23,
+        "topic_0.70": 23
+      },
+      "pairs": {
+        "database": {
+          "pair": [
+            "m8",
+            "m90"
+          ],
+          "topics": [
+            "database choice",
+            "moving the main store to Postgres"
+          ],
+          "topic_similarity": 0.23,
+          "clears_threshold": {
+            "0.50": false,
+            "0.60": false,
+            "0.70": false
+          },
+          "entity_only": null,
+          "topic_0.60": null
+        },
+        "hosting": {
+          "pair": [
+            "m29",
+            "m238"
+          ],
+          "topics": [
+            "deployment platform",
+            "migrating app hosting to AWS"
+          ],
+          "topic_similarity": 0.297,
+          "clears_threshold": {
+            "0.50": false,
+            "0.60": false,
+            "0.70": false
+          },
+          "entity_only": {
+            "reason": "entity",
+            "shared_entity": "heroku",
+            "similarity": null
+          },
+          "topic_0.60": {
+            "reason": "entity",
+            "shared_entity": "heroku",
+            "similarity": null
+          }
+        }
+      },
+      "decision_messages": {
+        "m8": {
+          "is_decision": true,
+          "topic": "database choice"
+        },
+        "m90": {
+          "is_decision": true,
+          "topic": "moving the main store to Postgres"
+        },
+        "m29": {
+          "is_decision": true,
+          "topic": "deployment platform"
+        },
+        "m238": {
+          "is_decision": true,
+          "topic": "migrating app hosting to AWS"
+        }
+      },
+      "topic_edges": [
+        {
+          "edge": [
+            "m67",
+            "m23"
+          ],
+          "similarity": 1.0,
+          "topics": [
+            "watering rotation",
+            "watering rotation"
+          ],
+          "source_preview": "The window plants are dying of neglect, so Mei and I are starting a ve",
+          "target_preview": "The window plants are dying of neglect, so Will and I are starting a v"
+        },
+        {
+          "edge": [
+            "m117",
+            "m67"
+          ],
+          "similarity": 1.0,
+          "topics": [
+            "watering rotation",
+            "watering rotation"
+          ],
+          "source_preview": "The window plants are dying of neglect, so Noah and I are starting a v",
+          "target_preview": "The window plants are dying of neglect, so Mei and I are starting a ve"
+        },
+        {
+          "edge": [
+            "m152",
+            "m117"
+          ],
+          "similarity": 1.0,
+          "topics": [
+            "watering rotation",
+            "watering rotation"
+          ],
+          "source_preview": "The window plants are dying of neglect, so Dana and I are starting a v",
+          "target_preview": "The window plants are dying of neglect, so Noah and I are starting a v"
+        },
+        {
+          "edge": [
+            "m186",
+            "m152"
+          ],
+          "similarity": 1.0,
+          "topics": [
+            "watering rotation",
+            "watering rotation"
+          ],
+          "source_preview": "The window plants are dying of neglect, so Lena and I are starting a v",
+          "target_preview": "The window plants are dying of neglect, so Dana and I are starting a v"
+        },
+        {
+          "edge": [
+            "m220",
+            "m186"
+          ],
+          "similarity": 1.0,
+          "topics": [
+            "watering rotation",
+            "watering rotation"
+          ],
+          "source_preview": "The window plants are dying of neglect, so Will and I are starting a v",
+          "target_preview": "The window plants are dying of neglect, so Lena and I are starting a v"
+        }
+      ],
+      "complete_story": {
+        "entity_only": {
+          "250": {
+            "relationship": 0.4444444444444444,
+            "lookup": 1.0
+          },
+          "500": {
+            "relationship": 0.5555555555555556,
+            "lookup": 1.0
+          },
+          "1000": {
+            "relationship": 0.7777777777777778,
+            "lookup": 1.0
+          },
+          "2000": {
+            "relationship": 0.8888888888888888,
+            "lookup": 1.0
+          },
+          "4000": {
+            "relationship": 1.0,
+            "lookup": 1.0
+          }
+        },
+        "topic_0.60": {
+          "250": {
+            "relationship": 0.4444444444444444,
+            "lookup": 1.0
+          },
+          "500": {
+            "relationship": 0.5555555555555556,
+            "lookup": 1.0
+          },
+          "1000": {
+            "relationship": 0.7777777777777778,
+            "lookup": 1.0
+          },
+          "2000": {
+            "relationship": 0.8888888888888888,
+            "lookup": 1.0
+          },
+          "4000": {
+            "relationship": 1.0,
+            "lookup": 1.0
+          }
+        }
+      }
+    }
+  }
+}
