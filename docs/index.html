@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>RALC Live Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column with a sticky section nav; demo first, then how it works, where to use it, and a step-by-step guide. */
+:root{
+  --bg:#f5f7f8; --panel:#ffffff; --ink:#15212b; --muted:#56656f; --line:#d6dee3;
+  --accent:#0b7a75; --accent-soft:#e2f2f0; --drop:#b2552b; --drop-soft:#f8e8df;
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1519; --panel:#162027; --ink:#e3ebef; --muted:#93a4ae; --line:#2a3a44;
+  --accent:#4cc2b9; --accent-soft:#15332f; --drop:#e58b5f; --drop-soft:#35211a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1519; --panel:#162027; --ink:#e3ebef; --muted:#93a4ae; --line:#2a3a44;
+  --accent:#4cc2b9; --accent-soft:#15332f; --drop:#e58b5f; --drop-soft:#35211a; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding-inline:20px;padding-block:32px 72px;display:grid;gap:56px}
+h1,h2,h3{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,6vw,3rem);font-weight:700}
+h2{font-size:1.6rem;font-weight:700}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0;max-width:65ch}
+.stack{display:grid;gap:14px}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lede{font-size:1.2rem;color:var(--muted)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px;display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:.8rem}
+nav a{color:var(--muted);text-decoration:none} nav a:hover,nav a:focus-visible{color:var(--accent)}
+.q{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;font-family:var(--display);font-size:1.3rem;font-weight:500}
+.q small{display:block;font-family:var(--mono);font-size:.78rem;color:var(--muted);font-weight:400;margin-top:6px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.col{border-radius:10px;padding:18px;display:grid;gap:12px;align-content:start;min-width:0}
+.col.bad{background:var(--drop-soft);border:1px solid var(--drop)}
+.col.good{background:var(--accent-soft);border:1px solid var(--accent)}
+.tag{font-family:var(--mono);font-size:.75rem}
+.bad .tag{color:var(--drop)} .good .tag{color:var(--accent)}
+.msg{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:.95rem}
+.who{font-family:var(--mono);font-size:.75rem;color:var(--muted);display:block;margin-bottom:4px}
+.missing{border:2px dashed var(--drop);border-radius:8px;padding:12px 14px;color:var(--drop);font-size:.95rem}
+.linkline{font-family:var(--mono);font-size:.8rem;color:var(--accent)}
+.answer{font-weight:600}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px;display:grid;gap:10px;min-width:0}
+.pipe{display:grid;gap:0;margin:0;padding:0;list-style:none;counter-reset:s}
+.pipe li{display:grid;grid-template-columns:2.2rem 1fr;gap:14px;padding-block:14px;border-bottom:1px solid var(--line);min-width:0}
+.pipe li:last-child{border-bottom:0}
+.pipe li::before{counter-increment:s;content:counter(s);font-family:var(--mono);font-weight:600;color:var(--accent);border:1px solid var(--accent);border-radius:50%;width:2.2rem;height:2.2rem;display:grid;place-items:center;font-size:.85rem}
+.pipe li > div{display:grid;gap:4px;min-width:0}
+.pipe .ex{font-size:.9rem;color:var(--muted)}
+.edges{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.edge{border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--bg);display:grid;gap:4px}
+.edge code{font-family:var(--mono);font-size:.78rem;color:var(--accent)}
+.uses{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.use{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:6px;align-content:start}
+.use.no{background:transparent;border-style:dashed}
+pre{font-family:var(--mono);font-size:.82rem;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;overflow-x:auto;margin:0;line-height:1.55}
+code.i{font-family:var(--mono);font-size:.85em;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+.guide{display:grid;gap:22px}
+.g{display:grid;gap:8px;min-width:0}
+.g h3 span{font-family:var(--mono);color:var(--accent);margin-right:8px}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.num{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:6px;align-content:start}
+.num b{font-family:var(--display);font-size:1.6rem;line-height:1.1}
+ul{margin:0;padding-left:20px;display:grid;gap:8px;max-width:65ch}
+.note{font-size:.88rem;color:var(--muted)}
+a{color:var(--accent)}
+.chart{gap:12px}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:var(--muted)}
+.sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.sw.on,.fill.on{background:var(--accent)} .sw.off,.fill.off{background:var(--muted);opacity:.55}
+.rows{display:grid;gap:6px}
+.row,.axis{display:grid;grid-template-columns:8.5rem 1fr 3.4rem;gap:10px;align-items:center;min-width:0}
+.axis{grid-template-columns:8.5rem 1fr 3.4rem}
+.ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+.lab{font-family:var(--mono);font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track{height:12px;background:var(--bg);border-radius:6px;overflow:hidden;background-image:linear-gradient(to right,var(--line) 1px,transparent 1px);background-size:25% 100%}
+.fill{height:100%;border-radius:6px}
+.val{font-family:var(--mono);font-size:.8rem;font-variant-numeric:tabular-nums;text-align:right}
+.group{display:grid;gap:3px;padding-block:6px;border-bottom:1px solid var(--line)}
+.group:last-child{border-bottom:0}
+@media (max-width:480px){.row,.axis{grid-template-columns:6.5rem 1fr 3rem}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="stack">
+  <div class="eyebrow">Open-source Python library · Gemma 4 · runs locally</div>
+  <h1>RALC: Relational Context Allocation</h1>
+  <p class="lede">A language model only knows the text you send it. When a chat gets long, you can't send all of it, so you have to pick. RALC picks the messages that belong together, so the model gets the whole story inside a small token budget.</p>
+</header>
+
+<nav aria-label="Sections"><a href="#demo">Demo</a><a href="#how">How it works</a><a href="#where">Where to use it</a><a href="#guide">Guide</a><a href="#results">Results</a></nav>
+
+<section class="stack" id="demo" aria-labelledby="demo-h">
+  <div class="eyebrow">Example from our test conversation (234 messages)</div>
+  <h2 id="demo-h">Someone asks about something said long ago</h2>
+  <div class="q">“What did we use for hosting before we changed it?”<small>Only a few messages can be sent to the model.</small></div>
+  <div class="cols">
+    <div class="col bad">
+      <span class="tag">Picking by similarity</span>
+      <h3>The model gets half the story</h3>
+      <div class="msg"><span class="who">early in the chat</span>Let us just push it to Heroku to begin with. I really do not want to spend our first week wrestling with servers.</div>
+      <div class="missing">The message about switching to AWS was thrown away because it “looked too similar” to this one.</div>
+      <p class="answer">The model can't tell that hosting ever changed.</p>
+    </div>
+    <div class="col good">
+      <span class="tag">RALC with Gemma</span>
+      <h3>The model gets the full story</h3>
+      <div class="msg"><span class="who">early in the chat</span>Let us just push it to Heroku to begin with. I really do not want to spend our first week wrestling with servers.</div>
+      <div class="linkline">↓ Gemma noticed: this later message replaces the one above</div>
+      <div class="msg"><span class="who">much later</span>Heroku has gotten expensive and we keep bumping into its ceilings, so we are moving where the app runs over to AWS and running it as containers.</div>
+      <p class="answer">The model can answer: Heroku first, then AWS.</p>
+    </div>
+  </div>
+  <div class="box">
+    <strong>Why the difference?</strong>
+    <p>Two messages about the same thing look alike, so ordinary selection treats them as duplicates and keeps only one. RALC knows they are connected (one replaced the other), so it keeps both.</p>
+  </div>
+</section>
+
+<section class="stack" id="how" aria-labelledby="how-h">
+  <div class="eyebrow">How it works</div>
+  <h2 id="how-h">From a long chat to a small, connected context</h2>
+  <p>RALC sits between your program and the model. It never rewrites the question and never touches the model's answer. Its only job is choosing which past messages to include.</p>
+  <ol class="pipe">
+    <li><div><h3>Store every message</h3><p>Each message becomes a point in a graph, saved in a local SQLite file.</p></div></li>
+    <li><div><h3>Connect the messages</h3><p>An extractor reads each message for names and decisions, and RALC draws links between messages.</p><p class="ex">The free built-in extractor uses simple patterns. Gemma 4 can do this job instead and understands things a pattern can't, like one decision replacing another.</p></div></li>
+    <li><div><h3>Find starting points</h3><p>When a question arrives, a small embedding model on your machine finds the messages most similar to it.</p></div></li>
+    <li><div><h3>Follow the links</h3><p>From those starting points, RALC walks the links to related messages, even ones that share no words with the question.</p></div></li>
+    <li><div><h3>Rank the candidates</h3><p>Each candidate gets a score combining similarity to the question, how strongly it's linked, shared names, and how recent it is.</p></div></li>
+    <li><div><h3>Fill the budget</h3><p>RALC adds the best messages until the token budget is used. It skips near-duplicates, but not linked messages, since those complete each other. It stops early when nothing useful is left, so it can use fewer tokens than allowed.</p></div></li>
+    <li><div><h3>Hand off</h3><p>The chosen messages come back in conversation order. You add the unchanged question and send it to any model.</p></div></li>
+  </ol>
+  <h3>The kinds of links</h3>
+  <div class="edges">
+    <div class="edge"><code>TEMPORALLY_FOLLOWS</code><span>This message came right after that one.</span></div>
+    <div class="edge"><code>ANSWERS</code><span>This reply answers that question.</span></div>
+    <div class="edge"><code>MENTIONS</code><span>Both messages talk about the same named thing.</span></div>
+    <div class="edge"><code>UPDATES</code><span>This decision replaces an earlier one. Gemma finds these; the pattern extractor found none in our test.</span></div>
+  </div>
+</section>
+
+<section class="stack" id="where" aria-labelledby="where-h">
+  <div class="eyebrow">Where to use it</div>
+  <h2 id="where-h">Anywhere history is long, things change, and space is tight</h2>
+  <div class="uses">
+    <div class="use"><h3>Long-running assistants</h3><p>Remember what was decided months ago and why it changed.</p></div>
+    <div class="use"><h3>Coding agents</h3><p>Connect a bug, its cause, the file, and the fix across hours of work.</p></div>
+    <div class="use"><h3>Small or local models</h3><p>Models with small context windows, or a tight token budget, get only what matters.</p></div>
+    <div class="use"><h3>Support bots</h3><p>Keep the problem, the workaround, and the final fix together.</p></div>
+    <div class="use"><h3>Team decision logs</h3><p>“What did we agree on, and why?” across reversed and re-made decisions.</p></div>
+    <div class="use no"><h3>Not a good fit</h3><p>Looking up one fact in documentation, or short chats where everything fits anyway. Ordinary search does as well there.</p></div>
+  </div>
+</section>
+
+<section class="stack" id="guide" aria-labelledby="guide-h">
+  <div class="eyebrow">Guide</div>
+  <h2 id="guide-h">Add RALC to your own chatbot</h2>
+  <div class="guide">
+    <div class="g"><h3><span>1</span>Install</h3><p>Requires Python 3.10 or newer.</p>
+<pre>git clone https://github.com/Vivek0x6b/Ralc.git
+cd Ralc
+pip install -e ".[embed,tokens]"     # add ,gemma to use Gemma</pre></div>
+
+    <div class="g"><h3><span>2</span>Create a context manager</h3><p>The storage file keeps the graph between runs.</p>
+<pre>from ralc import ContextManager
+
+ralc = ContextManager(storage="memory.db")</pre></div>
+
+    <div class="g"><h3><span>3</span>Save every message as your chatbot runs</h3><p>Add one line wherever your program sends or receives a message. RALC links each new message to the history automatically.</p>
+<pre>ralc.add_message(role="user", content=user_message)
+ralc.add_message(role="assistant", content=reply)
+ralc.save()</pre></div>
+
+    <div class="g"><h3><span>4</span>Get the best context for a question</h3><p>Pick a token budget that fits your model and your costs.</p>
+<pre>result = ralc.retrieve(query=question, token_budget=1000)
+
+result.token_count      # tokens actually used (never above the budget)
+result.nodes            # the chosen messages, in conversation order
+result.metadata         # what happened: candidates, nodes explored, skips</pre></div>
+
+    <div class="g"><h3><span>5</span>Send it to any model</h3><p>The question goes in unchanged. Use whichever model you like.</p>
+<pre>prompt = result.to_text() + "\n\n" + question
+# send prompt to Gemma, GPT, Claude, Llama, a local Ollama model...</pre></div>
+
+    <div class="g"><h3><span>6</span>Optional: let Gemma build the links</h3><p>Set <code class="i">GEMINI_API_KEY</code> in your environment, then pass the Gemma extractor. Without it, RALC uses the free pattern extractor.</p>
+<pre>from ralc.extraction import GemmaExtractor
+
+ralc = ContextManager(storage="memory.db",
+                      extractor=GemmaExtractor(model="gemma-4-26b-a4b-it"))</pre></div>
+  </div>
+  <p class="note">Your chat history stays on your machine. Only the messages RALC selects are sent to the model, and with Gemma enabled, each message is sent once to Gemma to find links.</p>
+</section>
+
+<section class="stack" id="results" aria-labelledby="res-h">
+  <div class="eyebrow">What we measured</div>
+  <h2 id="res-h">Early results</h2>
+  <div class="nums">
+    <div class="num"><b>Every budget</b><span>Using relationships found more complete answers than the same system without them, on questions that need several messages.</span></div>
+    <div class="num"><b>0 vs 31</b><span>“This replaced that” links found by the pattern extractor vs by Gemma.</span></div>
+    <div class="num"><b>Tie</b><span>On simple one-fact questions, RALC and ordinary search do equally well.</span></div>
+  </div>
+  <div class="box chart">
+    <h3>Does using relationships help?</h3>
+    <p class="note">Share of multi-message questions where every needed message was selected. Same system, same number of candidates, relationships on vs off.</p>
+    <div class="legend"><span><i class="sw on"></i>RALC (relationships on)</span><span><i class="sw off"></i>Relationships off</span></div>
+    <div class="axis"><span></span><div class="ticks"><span>0</span><span>0.25</span><span>0.5</span><span>0.75</span><span>1.0</span></div></div>
+    <div id="rel-chart" class="rows"></div>
+  </div>
+
+  <div class="box chart">
+    <h3>Links Gemma found, and what they did</h3>
+    <div class="rows">
+      <div class="row"><span class="lab">Pattern extractor</span><div class="track"><div class="fill off" style="width:0%"></div></div><span class="val">0 links</span></div>
+      <div class="row"><span class="lab">Gemma</span><div class="track"><div class="fill on" style="width:100%"></div></div><span class="val">31 links</span></div>
+    </div>
+    <p class="note">“This replaced that” links in the 234-message test conversation.</p>
+    <div class="rows">
+      <div class="row"><span class="lab">Gemma graph</span><div class="track"><div class="fill off" style="width:83%"></div></div><span class="val">0.83</span></div>
+      <div class="row"><span class="lab">+ keep linked pairs</span><div class="track"><div class="fill on" style="width:100%"></div></div><span class="val">1.00</span></div>
+    </div>
+    <p class="note">Complete answers on multi-message questions at a 1,000-token budget (5 of 6 → 6 of 6). The one recovered question is the hosting example above.</p>
+  </div>
+
+  <h3>Limits</h3>
+  <ul>
+    <li>Tested on one synthetic conversation with 14 to 17 questions and one Gemma model.</li>
+    <li>We measured which messages were selected, not yet whether the model's answers improved.</li>
+    <li>Linking decisions by topic did not work in our test, and is not included.</li>
+    <li>Not built yet: importing exported chat files, an MCP server, agent integrations.</li>
+  </ul>
+  <p>Code, tests, and every benchmark result: <a href="https://github.com/Vivek0x6b/Ralc">github.com/Vivek0x6b/Ralc</a></p>
+</section>
+
+</div>
+<script>
+const rel=[["Set 1 · 1,000 tok",.83,.67],["Set 1 · 2,000 tok",1,.67],["Set 1 · 4,000 tok",1,.83],["Set 2 · 250 tok",.33,.11],["Set 2 · 500 tok",.67,.44],["Set 2 · 1,000 tok",.67,.56],["Set 2 · 2,000 tok",.78,.67],["Set 2 · 4,000 tok",.78,.67]];
+document.getElementById("rel-chart").innerHTML=rel.map(([k,a,b])=>
+`<div class="group"><div class="row"><span class="lab">${k}</span><div class="track"><div class="fill on" style="width:${a*100}%"></div></div><span class="val">${a.toFixed(2)}</span></div><div class="row"><span class="lab"></span><div class="track"><div class="fill off" style="width:${b*100}%"></div></div><span class="val">${b.toFixed(2)}</span></div></div>`).join("");
+</script>
+</body>
+</html>
