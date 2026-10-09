@@ -18,10 +18,12 @@ from ralc.extraction.heuristic import HeuristicExtractor
 # Bump when the prompt changes so cached results from an old prompt are not reused.
 PROMPT_VERSION = "1"
 
-# Only genuine server or rate-limit conditions are worth retrying. An
-# AttributeError, a parse error, or an empty/blocked response is a real failure.
-_RETRYABLE_CODES = (429, 500, 503)
-_RETRYABLE_MARKERS = ("429", "500", "503", "RESOURCE_EXHAUSTED", "UNAVAILABLE", "INTERNAL")
+# Only genuine server or rate-limit conditions are worth retrying, including 504
+# deadline timeouts from slow models. An AttributeError, a parse error, or an
+# empty/blocked response is a real failure and is never retried.
+_RETRYABLE_CODES = (429, 500, 503, 504)
+_RETRYABLE_MARKERS = ("429", "500", "503", "504", "RESOURCE_EXHAUSTED",
+                      "UNAVAILABLE", "INTERNAL", "DEADLINE_EXCEEDED")
 
 _PROMPT = """You extract structured signals from a single chat message.
 
@@ -59,7 +61,7 @@ class GemmaExtractor:
         strict: bool = False,
         max_retries: int = 3,
         retry_base_delay: float = 1.0,
-        timeout: float = 60.0,
+        timeout: float = 120.0,
         cache: dict | None = None,
     ):
         self.model = model

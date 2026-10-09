@@ -77,7 +77,7 @@ def main():
           f"per extractor.", flush=True)
 
     gemma = GemmaExtractor(model=GEMMA_MODEL, strict=True, cache=cache,
-                           max_retries=5, retry_base_delay=2.0, timeout=60.0)
+                           max_retries=5, retry_base_delay=2.0, timeout=120.0)
     _warm_one("gemma", gemma, texts, cache, failures)
 
     # Hybrid is just the union of the heuristic and the plain-Gemma signals, so

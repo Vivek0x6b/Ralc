@@ -229,6 +229,16 @@ def test_retry_then_success_on_rate_limit():
     assert ex.client.models.calls == 2             # one retry after the rate-limit error
 
 
+def test_retry_on_504_deadline_exceeded():
+    ex = _ex(RuntimeError("504 DEADLINE_EXCEEDED"),
+             '{"entities": ["redis"], "is_decision": false}',
+             max_retries=3)
+    s = ex.extract(Message("user", "x"))
+    assert s.entities == ["redis"]
+    assert ex.stats["fallbacks"] == 0
+    assert ex.client.models.calls == 2             # retried after the 504 timeout
+
+
 def test_empty_response_is_a_failure_not_retried():
     message = Message("user", "use `redis`")
     ex = _ex(None, max_retries=5)                  # response.text is None (blocked/empty)
