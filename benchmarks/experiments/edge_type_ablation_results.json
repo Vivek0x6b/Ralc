@@ -1,0 +1,3708 @@
+{
+  "generated_at": "2026-10-09T09:08:06.393300+00:00",
+  "datasets": {
+    "v1": {
+      "budgets": [
+        1000,
+        2000,
+        4000
+      ],
+      "method_order": [
+        "full_ralc",
+        "remove_TEMPORALLY_FOLLOWS",
+        "remove_ANSWERS",
+        "remove_MENTIONS",
+        "only_TEMPORALLY_FOLLOWS"
+      ],
+      "method_seed_k": {
+        "full_ralc": [
+          10,
+          71.9
+        ],
+        "remove_TEMPORALLY_FOLLOWS": [
+          29,
+          72.6
+        ],
+        "remove_ANSWERS": [
+          10,
+          71.9
+        ],
+        "remove_MENTIONS": [
+          17,
+          74.1
+        ],
+        "only_TEMPORALLY_FOLLOWS": [
+          17,
+          74.1
+        ]
+      },
+      "target_pool": 71.9,
+      "counts": {
+        "relationship": 8,
+        "lookup": 6
+      },
+      "per_question": [
+        {
+          "question": "Why did we choose Postgres for the main database?",
+          "type": "relationship",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 976
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1000
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 992
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 985
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 985
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1968
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1970
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1949
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1974
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1998
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2370
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3953
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2048
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3328
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2851
+              }
+            }
+          }
+        },
+        {
+          "question": "What database did we originally plan to use before we switched?",
+          "type": "relationship",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 984
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 963
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 992
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 973
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 970
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1921
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1958
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1913
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1985
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1986
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2388
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3807
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2001
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2952
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2672
+              }
+            }
+          }
+        },
+        {
+          "question": "Why does each company only see its own cached invoice list now?",
+          "type": "relationship",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 998
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 990
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 998
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 996
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 996
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1941
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1956
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1801
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1962
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1916
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1941
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3190
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1801
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2544
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2303
+              }
+            }
+          }
+        },
+        {
+          "question": "What caused a customer to see invoices that belonged to another company?",
+          "type": "relationship",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 996
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 991
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 969
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 968
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 968
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1942
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1982
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1994
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1972
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1933
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2706
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3118
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2549
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2789
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2649
+              }
+            }
+          }
+        },
+        {
+          "question": "Where are we deploying the app now?",
+          "type": "lookup",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 977
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 947
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 977
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 986
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 986
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1983
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1915
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1981
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1972
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1981
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3728
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3960
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3256
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3971
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3395
+              }
+            }
+          }
+        },
+        {
+          "question": "What did we use for hosting before we changed it?",
+          "type": "relationship",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 988
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 981
+              },
+              "remove_ANSWERS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 998
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 993
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 989
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1968
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1998
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1956
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1974
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1956
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2801
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3953
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2549
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3735
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3010
+              }
+            }
+          }
+        },
+        {
+          "question": "How did we stop the nightly job from charging people twice?",
+          "type": "relationship",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 968
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 936
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 971
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 980
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 980
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1997
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1957
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1995
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1979
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1971
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2984
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3955
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2705
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3993
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3956
+              }
+            }
+          }
+        },
+        {
+          "question": "Did we decide to use Elasticsearch?",
+          "type": "lookup",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 979
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 989
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 980
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 995
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 995
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1868
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1971
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1777
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1971
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1974
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1868
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3001
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1777
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2411
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2219
+              }
+            }
+          }
+        },
+        {
+          "question": "Which service do we use to send invoice emails?",
+          "type": "lookup",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 980
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 994
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 997
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 986
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 978
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1952
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1989
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1932
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1974
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1991
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2910
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3019
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2785
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2504
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2483
+              }
+            }
+          }
+        },
+        {
+          "question": "How long are login tokens valid and how do we keep people signed in?",
+          "type": "lookup",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 924
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 992
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 941
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 937
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 952
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1606
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1933
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1508
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1966
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1966
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1606
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2225
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1508
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2245
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2056
+              }
+            }
+          }
+        },
+        {
+          "question": "What change makes a stolen refresh token only usable once?",
+          "type": "lookup",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 990
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 974
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 934
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 979
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 971
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1751
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1997
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1713
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1987
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1989
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1751
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3336
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1713
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3019
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2789
+              }
+            }
+          }
+        },
+        {
+          "question": "Why did the team move away from its first choice of data store?",
+          "type": "relationship",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 992
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 999
+              },
+              "remove_ANSWERS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 1000
+              },
+              "remove_MENTIONS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 981
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 981
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1952
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 1993
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1927
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1965
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1990
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2625
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3987
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2309
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3432
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3118
+              }
+            }
+          }
+        },
+        {
+          "question": "What did we do about the slow invoice list page?",
+          "type": "relationship",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 994
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 988
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 994
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 998
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 998
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1964
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2000
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2000
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1978
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1999
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3544
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3972
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3353
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3651
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3254
+              }
+            }
+          }
+        },
+        {
+          "question": "What is the API rate limit?",
+          "type": "lookup",
+          "results": {
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 963
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 999
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 958
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 958
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 958
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1966
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1998
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1871
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1976
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1989
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2053
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3297
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1871
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2972
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2427
+              }
+            }
+          }
+        }
+      ]
+    },
+    "v2": {
+      "budgets": [
+        250,
+        500,
+        1000,
+        2000,
+        4000
+      ],
+      "method_order": [
+        "full_ralc",
+        "remove_TEMPORALLY_FOLLOWS",
+        "remove_ANSWERS",
+        "remove_MENTIONS",
+        "only_TEMPORALLY_FOLLOWS"
+      ],
+      "method_seed_k": {
+        "full_ralc": [
+          10,
+          60.9
+        ],
+        "remove_TEMPORALLY_FOLLOWS": [
+          24,
+          60.4
+        ],
+        "remove_ANSWERS": [
+          10,
+          60.9
+        ],
+        "remove_MENTIONS": [
+          14,
+          59.5
+        ],
+        "only_TEMPORALLY_FOLLOWS": [
+          14,
+          59.5
+        ]
+      },
+      "target_pool": 60.9,
+      "counts": {
+        "relationship": 11,
+        "lookup": 6
+      },
+      "per_question": [
+        {
+          "question": "Why did we choose Postgres for the main database?",
+          "type": "relationship",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 245
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 245
+              },
+              "remove_ANSWERS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 245
+              },
+              "remove_MENTIONS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 245
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 245
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 493
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 493
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 493
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 493
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 493
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 970
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 972
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 999
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 981
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 993
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1911
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1997
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2000
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1996
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1995
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2195
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3111
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2000
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2561
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2275
+              }
+            }
+          }
+        },
+        {
+          "question": "What database did we originally plan to use before we switched?",
+          "type": "relationship",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 241
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 241
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 241
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 241
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 241
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 480
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 472
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 480
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 480
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 480
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 993
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 980
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 981
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 967
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 999
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1911
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1919
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1817
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1927
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1927
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2003
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2659
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1817
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2479
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2209
+              }
+            }
+          }
+        },
+        {
+          "question": "Why does each company only see its own cached invoice list now?",
+          "type": "relationship",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 231
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 231
+              },
+              "remove_ANSWERS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 231
+              },
+              "remove_MENTIONS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 231
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 231
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 486
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 497
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 484
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 481
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 479
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 997
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 998
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 997
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 993
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 988
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1700
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1965
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1648
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1953
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1801
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1700
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2600
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1648
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2045
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1801
+              }
+            }
+          }
+        },
+        {
+          "question": "What caused a customer to see invoices that belonged to another company?",
+          "type": "relationship",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 237
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 242
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 237
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 237
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 237
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 500
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 498
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 499
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 493
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 496
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 969
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 983
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 984
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 973
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 976
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1962
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1974
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1997
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1988
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1987
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2853
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2589
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2801
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2573
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2521
+              }
+            }
+          }
+        },
+        {
+          "question": "Where are we deploying the app now?",
+          "type": "lookup",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 248
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 216
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 248
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 248
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 248
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 473
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 473
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 473
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 473
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 473
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 995
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 997
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 989
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 984
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 984
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1997
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1958
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1988
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1971
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1993
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3997
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3938
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3619
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3905
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3190
+              }
+            }
+          }
+        },
+        {
+          "question": "What did we use for hosting before we changed it?",
+          "type": "relationship",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 0.0,
+                "complete": 0,
+                "tokens": 238
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 233
+              },
+              "remove_ANSWERS": {
+                "recall": 0.0,
+                "complete": 0,
+                "tokens": 238
+              },
+              "remove_MENTIONS": {
+                "recall": 0.0,
+                "complete": 0,
+                "tokens": 238
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.0,
+                "complete": 0,
+                "tokens": 238
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 496
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 472
+              },
+              "remove_ANSWERS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 496
+              },
+              "remove_MENTIONS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 468
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 468
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 996
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 974
+              },
+              "remove_ANSWERS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 994
+              },
+              "remove_MENTIONS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 986
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 986
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 1837
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1975
+              },
+              "remove_ANSWERS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 1639
+              },
+              "remove_MENTIONS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 1991
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 1979
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 1837
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3507
+              },
+              "remove_ANSWERS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 1639
+              },
+              "remove_MENTIONS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 2545
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 2261
+              }
+            }
+          }
+        },
+        {
+          "question": "How did we stop the nightly job from charging people twice?",
+          "type": "relationship",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 244
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 243
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 244
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 243
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 243
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 476
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 437
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 476
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 481
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 481
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 999
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 988
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 979
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 999
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 999
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1995
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1922
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1960
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1994
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1992
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3194
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3938
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2815
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3922
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3553
+              }
+            }
+          }
+        },
+        {
+          "question": "Did we decide to use Elasticsearch?",
+          "type": "lookup",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 231
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 231
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 231
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 231
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 231
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 488
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 495
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 500
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 495
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 495
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 950
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 966
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 997
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 991
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 994
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1527
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1964
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1329
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1902
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1604
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1527
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2576
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1329
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1902
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1604
+              }
+            }
+          }
+        },
+        {
+          "question": "Which service do we use to send invoice emails?",
+          "type": "lookup",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 225
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 225
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 225
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 225
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 225
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 496
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 496
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 495
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 494
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 462
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 988
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1000
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 988
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 996
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 982
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1991
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1993
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1982
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1992
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1869
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2731
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2667
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2606
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1992
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1869
+              }
+            }
+          }
+        },
+        {
+          "question": "How long are login tokens valid and how do we keep people signed in?",
+          "type": "lookup",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 224
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 224
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 224
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 224
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 224
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 478
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 460
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 498
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 478
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 489
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 977
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 947
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 951
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 987
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 966
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1461
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1994
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1461
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1981
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1981
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1461
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2287
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1461
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2249
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2158
+              }
+            }
+          }
+        },
+        {
+          "question": "What change makes a stolen refresh token only usable once?",
+          "type": "lookup",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 220
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 220
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 220
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 220
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 220
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 483
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 483
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 483
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 483
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 483
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 988
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 999
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 994
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 992
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 972
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1684
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1965
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1601
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1977
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1983
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1684
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2651
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1601
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2161
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2167
+              }
+            }
+          }
+        },
+        {
+          "question": "Why did the team move away from its first choice of data store?",
+          "type": "relationship",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 0.3333333333333333,
+                "complete": 0,
+                "tokens": 238
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.3333333333333333,
+                "complete": 0,
+                "tokens": 238
+              },
+              "remove_ANSWERS": {
+                "recall": 0.3333333333333333,
+                "complete": 0,
+                "tokens": 238
+              },
+              "remove_MENTIONS": {
+                "recall": 0.3333333333333333,
+                "complete": 0,
+                "tokens": 238
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.3333333333333333,
+                "complete": 0,
+                "tokens": 238
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 496
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 490
+              },
+              "remove_ANSWERS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 493
+              },
+              "remove_MENTIONS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 497
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 497
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 996
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 988
+              },
+              "remove_ANSWERS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 983
+              },
+              "remove_MENTIONS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 996
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.6666666666666666,
+                "complete": 0,
+                "tokens": 996
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1987
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1996
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1914
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1995
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1972
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2571
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3160
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2317
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2671
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2325
+              }
+            }
+          }
+        },
+        {
+          "question": "What did we do about the slow invoice list page?",
+          "type": "relationship",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 231
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 231
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 231
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 231
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 231
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 493
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 493
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 493
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 493
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 493
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 961
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 993
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 983
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 985
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 985
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1999
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1998
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1991
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1999
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1967
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3272
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3415
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3077
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3144
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2850
+              }
+            }
+          }
+        },
+        {
+          "question": "What is the API rate limit?",
+          "type": "lookup",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 232
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 226
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 232
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 226
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 226
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 487
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 476
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 487
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 483
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 483
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 998
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 971
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 995
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 998
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 998
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1822
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1998
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1646
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1943
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1853
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1822
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2369
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1646
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2044
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1853
+              }
+            }
+          }
+        },
+        {
+          "question": "Walk me through the whole database decision from start to finish.",
+          "type": "relationship",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 0.25,
+                "complete": 0,
+                "tokens": 227
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.25,
+                "complete": 0,
+                "tokens": 227
+              },
+              "remove_ANSWERS": {
+                "recall": 0.25,
+                "complete": 0,
+                "tokens": 227
+              },
+              "remove_MENTIONS": {
+                "recall": 0.25,
+                "complete": 0,
+                "tokens": 227
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.25,
+                "complete": 0,
+                "tokens": 227
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 498
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 471
+              },
+              "remove_ANSWERS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 498
+              },
+              "remove_MENTIONS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 471
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 471
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 982
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 976
+              },
+              "remove_ANSWERS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 986
+              },
+              "remove_MENTIONS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 994
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 996
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 1925
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1951
+              },
+              "remove_ANSWERS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 1921
+              },
+              "remove_MENTIONS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 1995
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 1999
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 2195
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3271
+              },
+              "remove_ANSWERS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 2101
+              },
+              "remove_MENTIONS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 3079
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 2714
+              }
+            }
+          }
+        },
+        {
+          "question": "Tell me the full story of the cache incident, from the cause to the fix.",
+          "type": "relationship",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 0.25,
+                "complete": 0,
+                "tokens": 223
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.25,
+                "complete": 0,
+                "tokens": 223
+              },
+              "remove_ANSWERS": {
+                "recall": 0.25,
+                "complete": 0,
+                "tokens": 223
+              },
+              "remove_MENTIONS": {
+                "recall": 0.25,
+                "complete": 0,
+                "tokens": 223
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.25,
+                "complete": 0,
+                "tokens": 223
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 479
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 479
+              },
+              "remove_ANSWERS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 479
+              },
+              "remove_MENTIONS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 479
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 479
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 972
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 981
+              },
+              "remove_ANSWERS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 970
+              },
+              "remove_MENTIONS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 990
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 990
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1968
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 1980
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1871
+              },
+              "remove_MENTIONS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 1998
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 0.5,
+                "complete": 0,
+                "tokens": 1975
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2271
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 0.75,
+                "complete": 0,
+                "tokens": 3354
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1871
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 3087
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2793
+              }
+            }
+          }
+        },
+        {
+          "question": "Summarize the billing double charge incident end to end.",
+          "type": "relationship",
+          "results": {
+            "250": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 243
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 243
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 243
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 243
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 243
+              }
+            },
+            "500": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 488
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 473
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 475
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 474
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 474
+              }
+            },
+            "1000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 963
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 994
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 988
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 983
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 983
+              }
+            },
+            "2000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1971
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1990
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1971
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1965
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1971
+              }
+            },
+            "4000": {
+              "full_ralc": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1971
+              },
+              "remove_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2879
+              },
+              "remove_ANSWERS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 1971
+              },
+              "remove_MENTIONS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2541
+              },
+              "only_TEMPORALLY_FOLLOWS": {
+                "recall": 1.0,
+                "complete": 1,
+                "tokens": 2436
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
