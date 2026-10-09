@@ -67,9 +67,9 @@ def qtype(question: dict) -> str:
     return "relationship" if len(question["gold_message_ids"]) >= 2 else "lookup"
 
 
-def ralc_ids(manager, query, budget, *, exp_cfg, strategy, rank_cfg, sel_cfg):
+def ralc_ids(manager, query, budget, *, exp_cfg, strategy, rank_cfg, sel_cfg, seed_k=SEED_K):
     """Run the RALC pipeline over an already-built manager with given configs."""
-    seeds = manager.retriever.retrieve(query, k=SEED_K)
+    seeds = manager.retriever.retrieve(query, k=seed_k)
     candidates = RelationalExpander(manager.graph, strategy=strategy, config=exp_cfg).expand(seeds)
     ranked = HybridRanker(manager.retriever, manager.extractor, rank_cfg).rank(query, candidates)
     selector = ContextSelector(manager.graph, manager.token_counter, sel_cfg,
@@ -77,7 +77,7 @@ def ralc_ids(manager, query, budget, *, exp_cfg, strategy, rank_cfg, sel_cfg):
     return [n.id for n in selector.select(query, ranked, budget).nodes]
 
 
-def build_methods(manager, all_ids, tokens_by_id, gemma_manager=None):
+def build_methods(manager, all_ids, tokens_by_id, gemma_manager=None, matched_seed_k=SEED_K):
     """Map method name to a function (query, budget) -> selected ids."""
     retriever = manager.retriever
     recent_order = list(reversed(all_ids))
@@ -109,6 +109,15 @@ def build_methods(manager, all_ids, tokens_by_id, gemma_manager=None):
                         rank_cfg=RankingConfig(relational=0.0, entity_overlap=0.0),
                         sel_cfg=SelectionConfig())
 
+    def method_relations_off_matched(query, budget):
+        # Same as relations_off (seeds only, no relational or entity signal) but
+        # with a seed pool enlarged to full RALC's average candidate pool size,
+        # so a loss cannot be blamed on a smaller pool.
+        return ralc_ids(manager, query, budget,
+                        exp_cfg=ExpansionConfig(max_hops=0), strategy="hop_decay",
+                        rank_cfg=RankingConfig(relational=0.0, entity_overlap=0.0),
+                        sel_cfg=SelectionConfig(), seed_k=matched_seed_k)
+
     def method_redundancy_off(query, budget):
         return ralc_ids(manager, query, budget,
                         sel_cfg=SelectionConfig(redundancy_penalty=False), **defaults)
@@ -123,6 +132,7 @@ def build_methods(manager, all_ids, tokens_by_id, gemma_manager=None):
         "graph": method_graph,
         "ralc_heuristic": method_ralc_heuristic,
         "relations_off": method_relations_off,
+        "relations_off_matched": method_relations_off_matched,
         "redundancy_off": method_redundancy_off,
         "relation_aware": method_relation_aware,
         "full": method_full,
@@ -168,7 +178,17 @@ def run_dataset(name, embedder):
         gemma_misses = gemma_extractor.misses
         print(f"[{name}] gemma cache misses (heuristic fallback): {gemma_misses}", flush=True)
 
-    methods = build_methods(manager, all_ids, tokens_by_id, gemma_manager)
+    # Full RALC's average candidate pool size, so relations_off_matched can use
+    # a seed pool of the same size (isolating pool size from missing relations).
+    default_expander = RelationalExpander(manager.graph, strategy="hop_decay", config=ExpansionConfig())
+    pool_sizes = [len(default_expander.expand(manager.retriever.retrieve(q["question"], k=SEED_K)))
+                  for q in questions]
+    avg_pool = sum(pool_sizes) / len(pool_sizes)
+    matched_seed_k = min(len(all_ids), round(avg_pool))
+    print(f"[{name}] full RALC avg candidate pool: {avg_pool:.1f}; "
+          f"relations_off_matched seed_k = {matched_seed_k}", flush=True)
+
+    methods = build_methods(manager, all_ids, tokens_by_id, gemma_manager, matched_seed_k)
     budgets = BUDGETS[name]
 
     # per_question[i][budget][method] = {recall, complete, tokens, selected}
@@ -199,6 +219,8 @@ def run_dataset(name, embedder):
         "types": ["relationship", "lookup"],
         "counts": {t: sum(1 for q in questions if qtype(q) == t) for t in ("relationship", "lookup")},
         "gemma_cache_misses": gemma_misses,
+        "full_ralc_avg_pool": avg_pool,
+        "matched_seed_k": matched_seed_k,
         "per_question": per_question,
     }
 
@@ -244,7 +266,9 @@ def render_md(result):
         d = result["datasets"][name]
         agg = d["aggregate"]
         lines.append(f"## {name} (relationship {d['counts']['relationship']}, "
-                     f"lookup {d['counts']['lookup']}; gemma cache misses {d['gemma_cache_misses']})")
+                     f"lookup {d['counts']['lookup']}; gemma cache misses {d['gemma_cache_misses']}; "
+                     f"full RALC avg pool {d['full_ralc_avg_pool']:.1f}, "
+                     f"relations_off_matched seed_k {d['matched_seed_k']})")
         lines.append("")
         for b in d["budgets"]:
             lines.append(f"### Budget {b}")

@@ -1,8 +1,8 @@
 # Relation-aware selection ablation
 
-- generated: 2026-10-09T08:46:21.371999+00:00
+- generated: 2026-10-09T08:57:08.878648+00:00
 
-## v1 (relationship 8, lookup 6; gemma cache misses 2)
+## v1 (relationship 8, lookup 6; gemma cache misses 2; full RALC avg pool 71.9, relations_off_matched seed_k 72)
 
 ### Budget 1000
 
@@ -18,6 +18,8 @@
 | ralc_heuristic | lookup | 1.00 | 1.00 | 969 | 0/0 |
 | relations_off | relationship | 0.75 | 0.90 | 443 | 0/0 |
 | relations_off | lookup | 1.00 | 1.00 | 477 | 0/0 |
+| relations_off_matched | relationship | 0.75 | 0.85 | 987 | 0/0 |
+| relations_off_matched | lookup | 1.00 | 1.00 | 984 | 0/0 |
 | redundancy_off | relationship | 1.00 | 1.00 | 985 | 2/0 |
 | redundancy_off | lookup | 1.00 | 1.00 | 978 | 0/0 |
 | relation_aware | relationship | 0.88 | 0.94 | 985 | 1/0 |
@@ -43,6 +45,8 @@
 | ralc_heuristic | lookup | 1.00 | 1.00 | 1854 | 0/0 |
 | relations_off | relationship | 0.75 | 0.90 | 443 | 0/1 |
 | relations_off | lookup | 1.00 | 1.00 | 477 | 0/0 |
+| relations_off_matched | relationship | 0.75 | 0.90 | 1962 | 0/1 |
+| relations_off_matched | lookup | 1.00 | 1.00 | 1708 | 0/0 |
 | redundancy_off | relationship | 1.00 | 1.00 | 1989 | 1/0 |
 | redundancy_off | lookup | 1.00 | 1.00 | 1985 | 0/0 |
 | relation_aware | relationship | 1.00 | 1.00 | 1957 | 1/0 |
@@ -68,6 +72,8 @@
 | ralc_heuristic | lookup | 1.00 | 1.00 | 2319 | 0/0 |
 | relations_off | relationship | 0.75 | 0.90 | 443 | 0/2 |
 | relations_off | lookup | 1.00 | 1.00 | 477 | 0/0 |
+| relations_off_matched | relationship | 0.88 | 0.94 | 2298 | 0/1 |
+| relations_off_matched | lookup | 1.00 | 1.00 | 1798 | 0/0 |
 | redundancy_off | relationship | 1.00 | 1.00 | 3981 | 0/0 |
 | redundancy_off | lookup | 1.00 | 1.00 | 3974 | 0/0 |
 | relation_aware | relationship | 1.00 | 1.00 | 2670 | 0/0 |
@@ -79,7 +85,7 @@
 | ralc_gemma_relation_aware | relationship | 1.00 | 1.00 | 3974 | 0/0 |
 | ralc_gemma_relation_aware | lookup | 1.00 | 1.00 | 3272 | 0/0 |
 
-## v2 (relationship 11, lookup 6; gemma cache misses None)
+## v2 (relationship 11, lookup 6; gemma cache misses None; full RALC avg pool 60.9, relations_off_matched seed_k 61)
 
 ### Budget 250
 
@@ -95,6 +101,8 @@
 | ralc_heuristic | lookup | 1.00 | 1.00 | 230 | 0/0 |
 | relations_off | relationship | 0.27 | 0.52 | 227 | 1/3 |
 | relations_off | lookup | 1.00 | 1.00 | 220 | 0/0 |
+| relations_off_matched | relationship | 0.18 | 0.52 | 234 | 1/4 |
+| relations_off_matched | lookup | 1.00 | 1.00 | 232 | 0/0 |
 | redundancy_off | relationship | 0.45 | 0.65 | 234 | 0/0 |
 | redundancy_off | lookup | 1.00 | 1.00 | 225 | 0/0 |
 | relation_aware | relationship | 0.45 | 0.62 | 236 | 0/0 |
@@ -116,6 +124,8 @@
 | ralc_heuristic | lookup | 1.00 | 1.00 | 484 | 0/0 |
 | relations_off | relationship | 0.64 | 0.80 | 443 | 0/0 |
 | relations_off | lookup | 1.00 | 1.00 | 422 | 0/0 |
+| relations_off_matched | relationship | 0.55 | 0.70 | 487 | 0/1 |
+| relations_off_matched | lookup | 1.00 | 1.00 | 486 | 0/0 |
 | redundancy_off | relationship | 0.73 | 0.89 | 486 | 1/0 |
 | redundancy_off | lookup | 1.00 | 1.00 | 486 | 0/0 |
 | relation_aware | relationship | 0.73 | 0.89 | 489 | 1/0 |
@@ -137,6 +147,8 @@
 | ralc_heuristic | lookup | 1.00 | 1.00 | 983 | 0/0 |
 | relations_off | relationship | 0.64 | 0.83 | 484 | 0/1 |
 | relations_off | lookup | 1.00 | 1.00 | 440 | 0/0 |
+| relations_off_matched | relationship | 0.64 | 0.80 | 987 | 0/1 |
+| relations_off_matched | lookup | 1.00 | 1.00 | 976 | 0/0 |
 | redundancy_off | relationship | 0.73 | 0.91 | 988 | 1/1 |
 | redundancy_off | lookup | 1.00 | 1.00 | 988 | 0/0 |
 | relation_aware | relationship | 0.73 | 0.91 | 978 | 1/1 |
@@ -158,6 +170,8 @@
 | ralc_heuristic | lookup | 1.00 | 1.00 | 1747 | 0/0 |
 | relations_off | relationship | 0.64 | 0.83 | 484 | 0/2 |
 | relations_off | lookup | 1.00 | 1.00 | 440 | 0/0 |
+| relations_off_matched | relationship | 0.73 | 0.88 | 1958 | 0/1 |
+| relations_off_matched | lookup | 1.00 | 1.00 | 1687 | 0/0 |
 | redundancy_off | relationship | 0.73 | 0.91 | 1978 | 1/2 |
 | redundancy_off | lookup | 1.00 | 1.00 | 1991 | 0/0 |
 | relation_aware | relationship | 0.82 | 0.93 | 1929 | 2/2 |
@@ -179,6 +193,8 @@
 | ralc_heuristic | lookup | 1.00 | 1.00 | 2204 | 0/0 |
 | relations_off | relationship | 0.64 | 0.83 | 484 | 0/2 |
 | relations_off | lookup | 1.00 | 1.00 | 440 | 0/0 |
+| relations_off_matched | relationship | 0.73 | 0.88 | 2123 | 0/1 |
+| relations_off_matched | lookup | 1.00 | 1.00 | 1752 | 0/0 |
 | redundancy_off | relationship | 0.82 | 0.93 | 3714 | 2/2 |
 | redundancy_off | lookup | 1.00 | 1.00 | 3820 | 0/0 |
 | relation_aware | relationship | 0.82 | 0.93 | 2377 | 2/2 |
