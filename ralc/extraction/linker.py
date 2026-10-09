@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import time
 
+import numpy as np
+
 from ralc.extraction.base import Extractor, Message
 from ralc.graph.edges import Edge
 from ralc.graph.graph import ContextGraph
@@ -30,9 +32,17 @@ class MessageLinker:
     survives save/load and a fresh linker continues the conversation.
     """
 
-    def __init__(self, extractor: Extractor, weights: dict | None = None):
+    def __init__(self, extractor: Extractor, weights: dict | None = None,
+                 embedder=None, topic_threshold: float = 0.6):
         self.extractor = extractor
         self.weights = {**DEFAULT_EDGE_WEIGHTS, **(weights or {})}
+        # When an embedder is supplied, two decisions also link by UPDATES if
+        # their topic strings are embedding-similar at or above the threshold,
+        # not only when they share an entity. With no embedder, linking is
+        # entity-only exactly as before.
+        self.embedder = embedder
+        self.topic_threshold = topic_threshold
+        self._topic_vectors: dict[str, np.ndarray] = {}
 
     def ingest(self, graph: ContextGraph, messages: list[Message]) -> list[str]:
         """Add messages to ``graph`` and return their node ids in order."""
@@ -42,17 +52,22 @@ class MessageLinker:
             signals = self.extractor.extract(message)
             msg_id = f"m{seq}"
             timestamp = message.timestamp if message.timestamp is not None else time.time()
+            metadata = {
+                "role": message.role,
+                "seq": seq,
+                "is_decision": signals.is_decision,
+            }
+            # Only store a topic when there is one, so messages without a topic
+            # keep the exact metadata shape they had before.
+            if signals.topic is not None:
+                metadata["topic"] = signals.topic
             graph.add_node(
                 Node(
                     id=msg_id,
                     content=message.content,
                     type="Message",
                     timestamp=timestamp,
-                    metadata={
-                        "role": message.role,
-                        "seq": seq,
-                        "is_decision": signals.is_decision,
-                    },
+                    metadata=metadata,
                 )
             )
             created.append(msg_id)
@@ -71,8 +86,8 @@ class MessageLinker:
             entity_keys = self._link_entities(graph, msg_id, signals.entities, timestamp)
 
             if signals.is_decision:
-                self._link_update(graph, msg_id, entity_keys, decisions)
-                decisions.append((msg_id, entity_keys))
+                self._link_update(graph, msg_id, entity_keys, signals.topic, decisions)
+                decisions.append((msg_id, entity_keys, signals.topic))
 
             prev_id = msg_id
             prev_role = message.role
@@ -83,14 +98,14 @@ class MessageLinker:
 
     def _state_from_graph(
         self, graph: ContextGraph
-    ) -> tuple[int, str | None, str | None, list[tuple[str, set[str]]]]:
+    ) -> tuple[int, str | None, str | None, list[tuple[str, set[str], str | None]]]:
         messages = graph.nodes(type="Message")
         if not messages:
             return 0, None, None, []
         messages.sort(key=lambda n: n.metadata["seq"])
         last = messages[-1]
         decisions = [
-            (node.id, self._entity_keys_of(graph, node.id))
+            (node.id, self._entity_keys_of(graph, node.id), node.metadata.get("topic"))
             for node in messages
             if node.metadata.get("is_decision")
         ]
@@ -127,14 +142,36 @@ class MessageLinker:
         graph: ContextGraph,
         msg_id: str,
         entity_keys: set[str],
-        decisions: list[tuple[str, set[str]]],
+        topic: str | None,
+        decisions: list[tuple[str, set[str], str | None]],
     ) -> None:
-        for prev_id, prev_keys in reversed(decisions):
-            if entity_keys & prev_keys:
-                graph.add_edge(
-                    Edge(msg_id, prev_id, "UPDATES", weight=self.weights["UPDATES"])
-                )
+        for prev_id, prev_keys, prev_topic in reversed(decisions):
+            shared = entity_keys & prev_keys
+            if shared:
+                graph.add_edge(Edge(msg_id, prev_id, "UPDATES", weight=self.weights["UPDATES"],
+                                    metadata={"reason": "entity",
+                                              "shared_entity": sorted(shared)[0]}))
                 return
+            similarity = self._topic_similarity(topic, prev_topic)
+            if similarity is not None and similarity >= self.topic_threshold:
+                graph.add_edge(Edge(msg_id, prev_id, "UPDATES", weight=self.weights["UPDATES"],
+                                    metadata={"reason": "topic",
+                                              "similarity": similarity,
+                                              "topics": [topic, prev_topic]}))
+                return
+
+    def _topic_similarity(self, a: str | None, b: str | None) -> float | None:
+        """Cosine between two topic strings, or None when it cannot apply."""
+        if self.embedder is None or not a or not b:
+            return None
+        return float(self._topic_vector(a) @ self._topic_vector(b))
+
+    def _topic_vector(self, topic: str) -> np.ndarray:
+        if topic not in self._topic_vectors:
+            vector = np.asarray(self.embedder.embed([topic])[0], dtype=float)
+            norm = float(np.linalg.norm(vector))
+            self._topic_vectors[topic] = vector / norm if norm > 0.0 else vector
+        return self._topic_vectors[topic]
 
     @staticmethod
     def _has_node(graph: ContextGraph, node_id: str) -> bool:

@@ -277,6 +277,85 @@ def test_context_manager_with_gemma_injected():
     assert result.token_count <= 100
 
 
+# --------------------------------------------------------------------------
+# Topic extraction and batching
+# --------------------------------------------------------------------------
+
+def test_parse_topic_for_decision():
+    s = _ex('{"entities": [], "is_decision": true, "topic": "data store choice"}').extract(
+        Message("user", "x"))
+    assert s.is_decision is True
+    assert s.topic == "data store choice"
+
+
+def test_topic_cleared_when_not_decision():
+    s = _ex('{"entities": [], "is_decision": false, "topic": "irrelevant"}').extract(
+        Message("user", "x"))
+    assert s.topic is None
+
+
+def test_missing_topic_defaults_to_none():
+    s = _ex('{"entities": ["redis"], "is_decision": true}').extract(Message("user", "x"))
+    assert s.topic is None
+
+
+def test_extract_batch_parses_array_one_call():
+    arr = ('[{"id": "0", "entities": ["redis"], "is_decision": false, "topic": null},'
+           ' {"id": "1", "entities": ["postgres"], "is_decision": true, "topic": "data store"}]')
+    ex = _ex(arr)
+    out = ex.extract_batch([Message("user", "a"), Message("user", "b")])
+    assert [s.is_decision for s in out] == [False, True]
+    assert out[1].topic == "data store"
+    assert ex.client.models.calls == 1
+
+
+def test_extract_batch_falls_back_to_single_on_bad_array():
+    ex = _ex("not an array",
+             '{"entities": ["redis"], "is_decision": false}',
+             '{"entities": ["postgres"], "is_decision": true, "topic": "data store"}')
+    out = ex.extract_batch([Message("user", "a"), Message("user", "b")])
+    assert ex.client.models.calls == 3          # 1 bad batch + 2 single fallbacks
+    assert out[0].entities == ["redis"]
+    assert out[1].topic == "data store"
+
+
+def test_extract_batch_uses_cache_and_skips_client():
+    arr = '[{"id": "0", "entities": [], "is_decision": false, "topic": null}]'
+    shared: dict = {}
+    _ex(arr, cache=shared).extract_batch([Message("user", "a")])
+    ex2 = _ex(arr, cache=shared)
+    ex2.extract_batch([Message("user", "a")])
+    assert ex2.client.models.calls == 0         # served from the shared cache
+
+
+def test_usage_metadata_accumulated():
+    class _U:
+        prompt_token_count = 10
+        candidates_token_count = 3
+        total_token_count = 13
+
+    class _UResp:
+        text = '{"entities": [], "is_decision": false}'
+        usage_metadata = _U()
+
+    class _UModels:
+        def __init__(self):
+            self.calls = 0
+
+        def generate_content(self, model=None, contents=None, config=None):
+            self.calls += 1
+            return _UResp()
+
+    class _UClient:
+        def __init__(self):
+            self.models = _UModels()
+
+    ex = GemmaExtractor(client=_UClient(), retry_base_delay=0.0)
+    ex.extract(Message("user", "x"))
+    assert ex.stats["prompt_tokens"] == 10
+    assert ex.stats["total_tokens"] == 13
+
+
 _LIVE = os.environ.get("GEMINI_API_KEY") and os.environ.get("RALC_LIVE_TESTS") == "1"
 
 

@@ -44,11 +44,14 @@ def load_gemma_cache() -> dict[str, Signals]:
     if not GEMMA_CACHE.exists():
         return {}
     raw = json.loads(GEMMA_CACHE.read_text(encoding="utf-8"))
-    return {k: Signals(entities=v["entities"], is_decision=v["is_decision"]) for k, v in raw.items()}
+    return {k: Signals(entities=v["entities"], is_decision=v["is_decision"],
+                       topic=v.get("topic"))
+            for k, v in raw.items()}
 
 
 def save_gemma_cache(cache: dict[str, Signals]) -> None:
     RESULTS.mkdir(exist_ok=True)
-    raw = {k: {"entities": list(s.entities), "is_decision": bool(s.is_decision)}
+    raw = {k: {"entities": list(s.entities), "is_decision": bool(s.is_decision),
+               "topic": s.topic}
            for k, s in cache.items()}
     GEMMA_CACHE.write_text(json.dumps(raw, indent=2), encoding="utf-8")

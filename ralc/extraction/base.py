@@ -26,10 +26,16 @@ class Message:
 
 @dataclass
 class Signals:
-    """Structured signals extracted from one message."""
+    """Structured signals extracted from one message.
+
+    ``topic`` is an optional short phrase naming what a decision is about; it is
+    only set by extractors that produce it (Gemma) and only for decisions. The
+    heuristic extractor leaves it None, so the linker stays agnostic.
+    """
 
     entities: list[str] = field(default_factory=list)
     is_decision: bool = False
+    topic: str | None = None
 
 
 @runtime_checkable

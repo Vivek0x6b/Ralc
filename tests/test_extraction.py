@@ -282,3 +282,83 @@ def test_linker_never_mutates_message_content():
     assert [m.content for m in messages] == contents
     assert g.get("m0").content == contents[0]
     assert g.get("m1").content == contents[1]
+
+
+# ==========================================================================
+# MessageLinker: topic-based UPDATES linking (Gemma topics)
+# ==========================================================================
+
+class _FixedExtractor:
+    """Returns a preset Signals per message content."""
+
+    def __init__(self, by_content):
+        self.by_content = by_content
+
+    def extract(self, message):
+        return self.by_content[message.content]
+
+
+class _OneHotEmbedder:
+    def __init__(self, mapping, dim):
+        self.mapping = mapping
+        self.dim = dim
+
+    def embed(self, texts):
+        import numpy as np
+        rows = []
+        for t in texts:
+            v = np.zeros(self.dim)
+            if t in self.mapping:
+                v[self.mapping[t]] = 1.0
+            rows.append(v)
+        return np.vstack(rows) if rows else np.zeros((0, self.dim))
+
+
+def _topic_graph(threshold, topic_vec):
+    sig = {
+        "mongo": Signals(entities=["mongodb"], is_decision=True, topic="data store choice"),
+        "postgres": Signals(entities=["postgres"], is_decision=True, topic="the main datastore"),
+    }
+    g = ContextGraph()
+    MessageLinker(_FixedExtractor(sig), embedder=_OneHotEmbedder(topic_vec, dim=2),
+                  topic_threshold=threshold).ingest(
+        g, [Message("user", "mongo"), Message("user", "postgres")])
+    return g
+
+
+def test_topic_updates_links_decisions_without_shared_entity():
+    g = _topic_graph(0.6, {"data store choice": 0, "the main datastore": 0})
+    edges = g.edges(type="UPDATES")
+    assert {(e.source, e.target) for e in edges} == {("m1", "m0")}
+    assert edges[0].metadata["reason"] == "topic"
+    assert edges[0].metadata["similarity"] == pytest.approx(1.0)
+
+
+def test_topic_below_threshold_does_not_link():
+    g = _topic_graph(0.6, {"data store choice": 0, "the main datastore": 1})
+    assert g.edges(type="UPDATES") == []
+
+
+def test_topic_linking_off_without_embedder():
+    sig = {
+        "mongo": Signals(entities=["mongodb"], is_decision=True, topic="data store"),
+        "postgres": Signals(entities=["postgres"], is_decision=True, topic="data store"),
+    }
+    g = ContextGraph()
+    MessageLinker(_FixedExtractor(sig)).ingest(
+        g, [Message("user", "mongo"), Message("user", "postgres")])
+    assert g.edges(type="UPDATES") == []   # entity-only linker ignores topics
+
+
+def test_shared_entity_links_with_entity_reason():
+    sig = {
+        "a": Signals(entities=["cache_key"], is_decision=True, topic="caching"),
+        "b": Signals(entities=["cache_key"], is_decision=True, topic="something else"),
+    }
+    g = ContextGraph()
+    MessageLinker(_FixedExtractor(sig), embedder=_OneHotEmbedder({"caching": 0, "something else": 1}, 2),
+                  topic_threshold=0.6).ingest(g, [Message("user", "a"), Message("user", "b")])
+    edges = g.edges(type="UPDATES")
+    assert {(e.source, e.target) for e in edges} == {("m1", "m0")}
+    assert edges[0].metadata["reason"] == "entity"
+    assert edges[0].metadata["shared_entity"] == "cache_key"

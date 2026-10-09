@@ -35,6 +35,8 @@ class ContextManager:
         expansion_config: ExpansionConfig | None = None,
         ranking_config: RankingConfig | None = None,
         selection_config: SelectionConfig | None = None,
+        link_topics: bool = False,
+        topic_threshold: float = 0.6,
     ):
         self.storage = storage
         self.embedder = embedder or SentenceTransformerEmbedder()
@@ -47,7 +49,13 @@ class ContextManager:
             self.graph = ContextGraph()
 
         self.retriever = SemanticRetriever(self.graph, self.embedder)
-        self.linker = MessageLinker(self.extractor)
+        # Topic linking is opt-in: with link_topics off the linker is entity-only,
+        # exactly as before, so default behavior and existing results are unchanged.
+        self.linker = MessageLinker(
+            self.extractor,
+            embedder=self.embedder if link_topics else None,
+            topic_threshold=topic_threshold,
+        )
         self.expander = RelationalExpander(
             self.graph, strategy=expansion_strategy, config=expansion_config
         )
