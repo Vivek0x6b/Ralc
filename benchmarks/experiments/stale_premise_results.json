@@ -1,0 +1,1016 @@
+{
+  "generated_at": "2026-10-09T08:18:16.477996+00:00",
+  "model": "gemma-4-26b-a4b-it",
+  "settings": {
+    "temperature": 0,
+    "timeout_seconds": 45.0,
+    "max_retries": 3,
+    "reps": 3,
+    "seed_k": 10,
+    "d_budgets": [
+      250,
+      500
+    ]
+  },
+  "prompt_template": "You are answering a question using only the chat messages below.\nRead the messages, then answer the question in one or two sentences.\nIf the messages do not contain the answer, say you do not know.\n\nMessages:\n{context}\n\nQuestion: {question}",
+  "questions": [
+    {
+      "id": "Q1",
+      "topic": "db",
+      "type": "current",
+      "text": "Which database are we using for the main data store now?",
+      "new_marker": "postgres",
+      "old_marker": "mongo"
+    },
+    {
+      "id": "Q2",
+      "topic": "db",
+      "type": "history",
+      "text": "What database did we originally plan to use before we switched?",
+      "new_marker": "postgres",
+      "old_marker": "mongo"
+    },
+    {
+      "id": "Q3",
+      "topic": "hosting",
+      "type": "current",
+      "text": "Where are we deploying the app now?",
+      "new_marker": "aws",
+      "old_marker": "heroku"
+    },
+    {
+      "id": "Q4",
+      "topic": "hosting",
+      "type": "history",
+      "text": "What did we use for hosting before we changed it?",
+      "new_marker": "aws",
+      "old_marker": "heroku"
+    }
+  ],
+  "contexts": {
+    "Q1": {
+      "A": {
+        "ids": [
+          "m90"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": false,
+        "topic_near_miss_ids": [],
+        "text": "user: I have changed my mind about where we keep our data. Invoices have to be exactly right, and we keep running into places where several rows need to change together or not at all. So before we get in any deeper I want to move the main store over to Postgres."
+      },
+      "B": {
+        "ids": [
+          "m8",
+          "m90"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [],
+        "text": "user: For the first cut I think we just keep everything in MongoDB. It is quick to get going, we can throw documents at it, and we do not have to think about migrations while the shape of an invoice is still changing week to week.\n\nuser: I have changed my mind about where we keep our data. Invoices have to be exactly right, and we keep running into places where several rows need to change together or not at all. So before we get in any deeper I want to move the main store over to Postgres."
+      },
+      "C": {
+        "ids": [
+          "m8"
+        ],
+        "contains_new_decision": false,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [],
+        "text": "user: For the first cut I think we just keep everything in MongoDB. It is quick to get going, we can throw documents at it, and we do not have to think about migrations while the shape of an invoice is still changing week to week."
+      },
+      "D:vector@250": {
+        "ids": [
+          "m8",
+          "m9",
+          "m70",
+          "m90",
+          "m115"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [
+          "m115"
+        ],
+        "text": "user: For the first cut I think we just keep everything in MongoDB. It is quick to get going, we can throw documents at it, and we do not have to think about migrations while the shape of an invoice is still changing week to week.\n\nassistant: That is fine for the prototype. Once the data model settles down we should look at it again, but there is no point agonizing over storage this early.\n\nassistant: I would really rather not run a separate search cluster yet, it is one more thing to feed and watch. The full text search built into Postgres is more than good enough for the amount of data we have, so we will lean on that for now.\n\nuser: I have changed my mind about where we keep our data. Invoices have to be exactly right, and we keep running into places where several rows need to change together or not at all. So before we get in any deeper I want to move the main store over to Postgres.\n\nuser: I keep seeing the word Postgres in my dreams at this point, which I am choosing to read as a sign that I am overdue for a vacation rather than any kind of deep technical insight about the data layer or the choices we have made around it."
+      },
+      "D:ralc_heuristic@250": {
+        "ids": [
+          "m8",
+          "m9",
+          "m70",
+          "m90",
+          "m115"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [
+          "m115"
+        ],
+        "text": "user: For the first cut I think we just keep everything in MongoDB. It is quick to get going, we can throw documents at it, and we do not have to think about migrations while the shape of an invoice is still changing week to week.\n\nassistant: That is fine for the prototype. Once the data model settles down we should look at it again, but there is no point agonizing over storage this early.\n\nassistant: I would really rather not run a separate search cluster yet, it is one more thing to feed and watch. The full text search built into Postgres is more than good enough for the amount of data we have, so we will lean on that for now.\n\nuser: I have changed my mind about where we keep our data. Invoices have to be exactly right, and we keep running into places where several rows need to change together or not at all. So before we get in any deeper I want to move the main store over to Postgres.\n\nuser: I keep seeing the word Postgres in my dreams at this point, which I am choosing to read as a sign that I am overdue for a vacation rather than any kind of deep technical insight about the data layer or the choices we have made around it."
+      },
+      "D:vector@500": {
+        "ids": [
+          "m8",
+          "m9",
+          "m70",
+          "m75",
+          "m81",
+          "m90",
+          "m110",
+          "m115"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [
+          "m81",
+          "m115"
+        ],
+        "text": "user: For the first cut I think we just keep everything in MongoDB. It is quick to get going, we can throw documents at it, and we do not have to think about migrations while the shape of an invoice is still changing week to week.\n\nassistant: That is fine for the prototype. Once the data model settles down we should look at it again, but there is no point agonizing over storage this early.\n\nassistant: I would really rather not run a separate search cluster yet, it is one more thing to feed and watch. The full text search built into Postgres is more than good enough for the amount of data we have, so we will lean on that for now.\n\nassistant: Taking Sunday off to see family. Ivy will cover my reviews. Nothing is on fire, just routine cleanup, and I will keep my phone on for genuine emergencies only, which firmly does not include asking me where a particular config file lives. Totally aside, I keep misreading the renamed meeting room as the cache and marching confidently to entirely the wrong floor. Off topic, my phone autocorrects Postgres to postgrad every single time and at this point I have simply surrendered to it.\n\nassistant: A friend of mine benchmarked Mongo against Postgres on a weekend side project and wrote it up. It is a fun read and completely irrelevant to any decision we have ever made, but I enjoyed it and will share the link later.\n\nuser: I have changed my mind about where we keep our data. Invoices have to be exactly right, and we keep running into places where several rows need to change together or not at all. So before we get in any deeper I want to move the main store over to Postgres.\n\nuser: Trivia at the usual bar on Friday. We lost to the data team last time and I want our honor back. We are strong on geography and weak on pop music, so ringers are very welcome. Tangent, my search for a decent desk lamp has entered its third week and I am starting to seriously question my own standards. In other news, my plant at home is thriving while the office ones wilt, which surely says something I am not ready to hear.\n\nuser: I keep seeing the word Postgres in my dreams at this point, which I am choosing to read as a sign that I am overdue for a vacation rather than any kind of deep technical insight about the data layer or the choices we have made around it."
+      },
+      "D:ralc_heuristic@500": {
+        "ids": [
+          "m8",
+          "m9",
+          "m70",
+          "m81",
+          "m90",
+          "m110",
+          "m115",
+          "m157"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [
+          "m81",
+          "m115"
+        ],
+        "text": "user: For the first cut I think we just keep everything in MongoDB. It is quick to get going, we can throw documents at it, and we do not have to think about migrations while the shape of an invoice is still changing week to week.\n\nassistant: That is fine for the prototype. Once the data model settles down we should look at it again, but there is no point agonizing over storage this early.\n\nassistant: I would really rather not run a separate search cluster yet, it is one more thing to feed and watch. The full text search built into Postgres is more than good enough for the amount of data we have, so we will lean on that for now.\n\nassistant: A friend of mine benchmarked Mongo against Postgres on a weekend side project and wrote it up. It is a fun read and completely irrelevant to any decision we have ever made, but I enjoyed it and will share the link later.\n\nuser: I have changed my mind about where we keep our data. Invoices have to be exactly right, and we keep running into places where several rows need to change together or not at all. So before we get in any deeper I want to move the main store over to Postgres.\n\nuser: Trivia at the usual bar on Friday. We lost to the data team last time and I want our honor back. We are strong on geography and weak on pop music, so ringers are very welcome. Tangent, my search for a decent desk lamp has entered its third week and I am starting to seriously question my own standards. In other news, my plant at home is thriving while the office ones wilt, which surely says something I am not ready to hear.\n\nuser: I keep seeing the word Postgres in my dreams at this point, which I am choosing to read as a sign that I am overdue for a vacation rather than any kind of deep technical insight about the data layer or the choices we have made around it.\n\nassistant: Taking Thursday off to see family. Sofia will cover my reviews. Nothing is on fire, just routine cleanup, and I will keep my phone on for genuine emergencies only, which firmly does not include asking me where a particular config file lives. Totally aside, I keep misreading the renamed meeting room as the cache and marching confidently to entirely the wrong floor. Off topic, my phone autocorrects Postgres to postgrad every single time and at this point I have simply surrendered to it."
+      }
+    },
+    "Q2": {
+      "A": {
+        "ids": [
+          "m90"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": false,
+        "topic_near_miss_ids": [],
+        "text": "user: I have changed my mind about where we keep our data. Invoices have to be exactly right, and we keep running into places where several rows need to change together or not at all. So before we get in any deeper I want to move the main store over to Postgres."
+      },
+      "B": {
+        "ids": [
+          "m8",
+          "m90"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [],
+        "text": "user: For the first cut I think we just keep everything in MongoDB. It is quick to get going, we can throw documents at it, and we do not have to think about migrations while the shape of an invoice is still changing week to week.\n\nuser: I have changed my mind about where we keep our data. Invoices have to be exactly right, and we keep running into places where several rows need to change together or not at all. So before we get in any deeper I want to move the main store over to Postgres."
+      },
+      "C": {
+        "ids": [
+          "m8"
+        ],
+        "contains_new_decision": false,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [],
+        "text": "user: For the first cut I think we just keep everything in MongoDB. It is quick to get going, we can throw documents at it, and we do not have to think about migrations while the shape of an invoice is still changing week to week."
+      }
+    },
+    "Q3": {
+      "A": {
+        "ids": [
+          "m238"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": false,
+        "topic_near_miss_ids": [],
+        "text": "assistant: Heroku has gotten expensive and we keep bumping into its ceilings, so we are moving where the app runs over to AWS and running it as containers. That gives us room to grow without the per dyno pricing."
+      },
+      "B": {
+        "ids": [
+          "m29",
+          "m238"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [],
+        "text": "user: Let us just push it to Heroku to begin with. I really do not want to spend our first week wrestling with servers when we could be building the actual product.\n\nassistant: Heroku has gotten expensive and we keep bumping into its ceilings, so we are moving where the app runs over to AWS and running it as containers. That gives us room to grow without the per dyno pricing."
+      },
+      "C": {
+        "ids": [
+          "m29"
+        ],
+        "contains_new_decision": false,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [],
+        "text": "user: Let us just push it to Heroku to begin with. I really do not want to spend our first week wrestling with servers when we could be building the actual product."
+      },
+      "D:vector@250": {
+        "ids": [
+          "m29",
+          "m71",
+          "m157",
+          "m238"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [],
+        "text": "user: Let us just push it to Heroku to begin with. I really do not want to spend our first week wrestling with servers when we could be building the actual product.\n\nuser: Support got a question about whether refresh tokens work on the mobile app yet. I think they do, but I am honestly not certain, so if someone actually knows the answer please drop it in the thread and save them the guesswork and the wait.\n\nassistant: Taking Thursday off to see family. Sofia will cover my reviews. Nothing is on fire, just routine cleanup, and I will keep my phone on for genuine emergencies only, which firmly does not include asking me where a particular config file lives. Totally aside, I keep misreading the renamed meeting room as the cache and marching confidently to entirely the wrong floor. Off topic, my phone autocorrects Postgres to postgrad every single time and at this point I have simply surrendered to it.\n\nassistant: Heroku has gotten expensive and we keep bumping into its ceilings, so we are moving where the app runs over to AWS and running it as containers. That gives us room to grow without the per dyno pricing."
+      },
+      "D:ralc_heuristic@250": {
+        "ids": [
+          "m29",
+          "m69",
+          "m71",
+          "m173",
+          "m238"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [],
+        "text": "user: Let us just push it to Heroku to begin with. I really do not want to spend our first week wrestling with servers when we could be building the actual product.\n\nuser: Do we need a dedicated search engine for finding invoices by customer name and by the notes people leave on them? I keep wondering if we should bring one in.\n\nuser: Support got a question about whether refresh tokens work on the mobile app yet. I think they do, but I am honestly not certain, so if someone actually knows the answer please drop it in the thread and save them the guesswork and the wait.\n\nuser: Heads up, the all hands slid to Wednesday afternoon because the big room got double booked by the platform team again. Invites are updated, so ping Aisha if yours did not move. Unrelated, but if someone finds a blue pen wandering the office, it is mine and it has survived three laptops and counting. Totally aside, I keep misreading the renamed meeting room as the cache and marching confidently to entirely the wrong floor.\n\nassistant: Heroku has gotten expensive and we keep bumping into its ceilings, so we are moving where the app runs over to AWS and running it as containers. That gives us room to grow without the per dyno pricing."
+      },
+      "D:vector@500": {
+        "ids": [
+          "m29",
+          "m71",
+          "m75",
+          "m97",
+          "m157",
+          "m173",
+          "m238"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [],
+        "text": "user: Let us just push it to Heroku to begin with. I really do not want to spend our first week wrestling with servers when we could be building the actual product.\n\nuser: Support got a question about whether refresh tokens work on the mobile app yet. I think they do, but I am honestly not certain, so if someone actually knows the answer please drop it in the thread and save them the guesswork and the wait.\n\nassistant: Taking Sunday off to see family. Ivy will cover my reviews. Nothing is on fire, just routine cleanup, and I will keep my phone on for genuine emergencies only, which firmly does not include asking me where a particular config file lives. Totally aside, I keep misreading the renamed meeting room as the cache and marching confidently to entirely the wrong floor. Off topic, my phone autocorrects Postgres to postgrad every single time and at this point I have simply surrendered to it.\n\nuser: Heads up, the all hands slid to Saturday afternoon because the big room got double booked by the data team again. Invites are updated, so ping Riya if yours did not move. Unrelated, but if someone finds a blue pen wandering the office, it is mine and it has survived three laptops and counting. Totally aside, I keep misreading the renamed meeting room as the cache and marching confidently to entirely the wrong floor.\n\nassistant: Taking Thursday off to see family. Sofia will cover my reviews. Nothing is on fire, just routine cleanup, and I will keep my phone on for genuine emergencies only, which firmly does not include asking me where a particular config file lives. Totally aside, I keep misreading the renamed meeting room as the cache and marching confidently to entirely the wrong floor. Off topic, my phone autocorrects Postgres to postgrad every single time and at this point I have simply surrendered to it.\n\nuser: Heads up, the all hands slid to Wednesday afternoon because the big room got double booked by the platform team again. Invites are updated, so ping Aisha if yours did not move. Unrelated, but if someone finds a blue pen wandering the office, it is mine and it has survived three laptops and counting. Totally aside, I keep misreading the renamed meeting room as the cache and marching confidently to entirely the wrong floor.\n\nassistant: Heroku has gotten expensive and we keep bumping into its ceilings, so we are moving where the app runs over to AWS and running it as containers. That gives us room to grow without the per dyno pricing."
+      },
+      "D:ralc_heuristic@500": {
+        "ids": [
+          "m71",
+          "m157",
+          "m173",
+          "m191",
+          "m212",
+          "m238"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": false,
+        "topic_near_miss_ids": [],
+        "text": "user: Support got a question about whether refresh tokens work on the mobile app yet. I think they do, but I am honestly not certain, so if someone actually knows the answer please drop it in the thread and save them the guesswork and the wait.\n\nassistant: Taking Thursday off to see family. Sofia will cover my reviews. Nothing is on fire, just routine cleanup, and I will keep my phone on for genuine emergencies only, which firmly does not include asking me where a particular config file lives. Totally aside, I keep misreading the renamed meeting room as the cache and marching confidently to entirely the wrong floor. Off topic, my phone autocorrects Postgres to postgrad every single time and at this point I have simply surrendered to it.\n\nuser: Heads up, the all hands slid to Wednesday afternoon because the big room got double booked by the platform team again. Invites are updated, so ping Aisha if yours did not move. Unrelated, but if someone finds a blue pen wandering the office, it is mine and it has survived three laptops and counting. Totally aside, I keep misreading the renamed meeting room as the cache and marching confidently to entirely the wrong floor.\n\nassistant: Taking Saturday off to see family. Diego will cover my reviews. Nothing is on fire, just routine cleanup, and I will keep my phone on for genuine emergencies only, which firmly does not include asking me where a particular config file lives. On a side note, the billing team downstairs got a popcorn machine and the smell drifts up here like a taunt every afternoon. Unrelated, I have started taking the long way to the kitchen just to hit my step count, and I already regret telling you this.\n\nuser: The new hire starts Wednesday. Can someone be their buddy, show them the ropes, where the dashboards live, and how we ship? Noah set a high bar doing it last time. Off topic, my phone autocorrects Postgres to postgrad every single time and at this point I have simply surrendered to it. Aside, the SendGrid newsletter I subscribed to by accident years ago still arrives weekly and I have grown oddly fond of it.\n\nassistant: Heroku has gotten expensive and we keep bumping into its ceilings, so we are moving where the app runs over to AWS and running it as containers. That gives us room to grow without the per dyno pricing."
+      }
+    },
+    "Q4": {
+      "A": {
+        "ids": [
+          "m238"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": false,
+        "topic_near_miss_ids": [],
+        "text": "assistant: Heroku has gotten expensive and we keep bumping into its ceilings, so we are moving where the app runs over to AWS and running it as containers. That gives us room to grow without the per dyno pricing."
+      },
+      "B": {
+        "ids": [
+          "m29",
+          "m238"
+        ],
+        "contains_new_decision": true,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [],
+        "text": "user: Let us just push it to Heroku to begin with. I really do not want to spend our first week wrestling with servers when we could be building the actual product.\n\nassistant: Heroku has gotten expensive and we keep bumping into its ceilings, so we are moving where the app runs over to AWS and running it as containers. That gives us room to grow without the per dyno pricing."
+      },
+      "C": {
+        "ids": [
+          "m29"
+        ],
+        "contains_new_decision": false,
+        "contains_old_decision": true,
+        "topic_near_miss_ids": [],
+        "text": "user: Let us just push it to Heroku to begin with. I really do not want to spend our first week wrestling with servers when we could be building the actual product."
+      }
+    }
+  },
+  "runs": [
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 0,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 1,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 2,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 0,
+      "answer": "We are using Postgres for the main data store.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 1,
+      "answer": "We are using Postgres for the main data store.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 2,
+      "answer": "We are using Postgres for the main data store.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 0,
+      "answer": "For the first cut, everything is being kept in MongoDB.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "STALE(old)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 1,
+      "answer": "For the first cut, everything is being kept in MongoDB.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "STALE(old)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 2,
+      "answer": "For the first cut, everything is being kept in MongoDB.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "STALE(old)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@250",
+      "rep": 0,
+      "answer": "The main data store is being moved to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@250",
+      "rep": 1,
+      "answer": "The main data store is being moved to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@250",
+      "rep": 2,
+      "answer": "The main data store is being moved to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@250",
+      "rep": 0,
+      "answer": "The main data store is being moved to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@250",
+      "rep": 1,
+      "answer": "The main data store is being moved to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@250",
+      "rep": 2,
+      "answer": "The main data store is being moved to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@500",
+      "rep": 0,
+      "answer": "The main store is being moved over to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@500",
+      "rep": 1,
+      "answer": "The main store is being moved over to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@500",
+      "rep": 2,
+      "answer": "The main store is being moved over to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@500",
+      "rep": 0,
+      "answer": "The main store is being moved over to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@500",
+      "rep": 1,
+      "answer": "The main store is being moved over to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q1",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@500",
+      "rep": 2,
+      "answer": "The main store is being moved over to Postgres.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q2",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 0,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    },
+    {
+      "question_id": "Q2",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 1,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    },
+    {
+      "question_id": "Q2",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 2,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    },
+    {
+      "question_id": "Q2",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 0,
+      "answer": "The original plan was to use MongoDB.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "correct(old)"
+    },
+    {
+      "question_id": "Q2",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 1,
+      "answer": "The original plan was to use MongoDB.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "correct(old)"
+    },
+    {
+      "question_id": "Q2",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 2,
+      "answer": "The original plan was to use MongoDB.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "correct(old)"
+    },
+    {
+      "question_id": "Q2",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 0,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    },
+    {
+      "question_id": "Q2",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 1,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    },
+    {
+      "question_id": "Q2",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 2,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 0,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 1,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 2,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 0,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 1,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 2,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 0,
+      "answer": "The app is being deployed to Heroku.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "STALE(old)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 1,
+      "answer": "The app is being deployed to Heroku.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "STALE(old)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 2,
+      "answer": "The app is being deployed to Heroku.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "STALE(old)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@250",
+      "rep": 0,
+      "answer": "The app is being moved to AWS and will be running as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@250",
+      "rep": 1,
+      "answer": "The app is being moved to AWS and will be running as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@250",
+      "rep": 2,
+      "answer": "The app is being moved to AWS and will be running as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@250",
+      "rep": 0,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@250",
+      "rep": 1,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@250",
+      "rep": 2,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@500",
+      "rep": 0,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@500",
+      "rep": 1,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:vector@500",
+      "rep": 2,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@500",
+      "rep": 0,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@500",
+      "rep": 1,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q3",
+      "type": "current",
+      "topic": "hosting",
+      "condition": "D:ralc_heuristic@500",
+      "rep": 2,
+      "answer": "The app is being moved to AWS and will be run as containers.",
+      "new_marker_hit": true,
+      "old_marker_hit": false,
+      "bucket": "new_only",
+      "verdict": "correct(new)"
+    },
+    {
+      "question_id": "Q4",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 0,
+      "answer": "Before the change, the app was hosted on Heroku.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "correct(old)"
+    },
+    {
+      "question_id": "Q4",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 1,
+      "answer": "Before the change, the app was hosted on Heroku.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "correct(old)"
+    },
+    {
+      "question_id": "Q4",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "A",
+      "rep": 2,
+      "answer": "Before the change, the app was hosted on Heroku.",
+      "new_marker_hit": false,
+      "old_marker_hit": true,
+      "bucket": "old_only",
+      "verdict": "correct(old)"
+    },
+    {
+      "question_id": "Q4",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 0,
+      "answer": "We used Heroku for hosting before moving to AWS.",
+      "new_marker_hit": true,
+      "old_marker_hit": true,
+      "bucket": "both",
+      "verdict": "correct(both)"
+    },
+    {
+      "question_id": "Q4",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 1,
+      "answer": "We used Heroku for hosting before moving to AWS.",
+      "new_marker_hit": true,
+      "old_marker_hit": true,
+      "bucket": "both",
+      "verdict": "correct(both)"
+    },
+    {
+      "question_id": "Q4",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "B",
+      "rep": 2,
+      "answer": "We used Heroku for hosting before moving to AWS.",
+      "new_marker_hit": true,
+      "old_marker_hit": true,
+      "bucket": "both",
+      "verdict": "correct(both)"
+    },
+    {
+      "question_id": "Q4",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 0,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    },
+    {
+      "question_id": "Q4",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 1,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    },
+    {
+      "question_id": "Q4",
+      "type": "history",
+      "topic": "hosting",
+      "condition": "C",
+      "rep": 2,
+      "answer": "I do not know.",
+      "new_marker_hit": false,
+      "old_marker_hit": false,
+      "bucket": "neither",
+      "verdict": "unclear"
+    }
+  ]
+}
