@@ -1,0 +1,157 @@
+[
+  {
+    "question": "Why did we choose Postgres for the main database?",
+    "gold_message_ids": [
+      "m100",
+      "m101"
+    ],
+    "required_message_ids": [
+      "m100",
+      "m101"
+    ],
+    "tag": "relationship"
+  },
+  {
+    "question": "What database did we originally plan to use before we switched?",
+    "gold_message_ids": [
+      "m10",
+      "m100"
+    ],
+    "required_message_ids": [
+      "m10",
+      "m100"
+    ],
+    "tag": "relationship"
+  },
+  {
+    "question": "Why does each company only see its own cached invoice list now?",
+    "gold_message_ids": [
+      "m113",
+      "m114"
+    ],
+    "required_message_ids": [
+      "m113",
+      "m114"
+    ],
+    "tag": "relationship"
+  },
+  {
+    "question": "What caused a customer to see invoices that belonged to another company?",
+    "gold_message_ids": [
+      "m112",
+      "m113"
+    ],
+    "required_message_ids": [
+      "m113"
+    ],
+    "tag": "lookup"
+  },
+  {
+    "question": "Where are we deploying the app now?",
+    "gold_message_ids": [
+      "m137"
+    ],
+    "required_message_ids": [
+      "m137"
+    ],
+    "tag": "lookup"
+  },
+  {
+    "question": "What did we use for hosting before we changed it?",
+    "gold_message_ids": [
+      "m33",
+      "m137"
+    ],
+    "required_message_ids": [
+      "m33",
+      "m137"
+    ],
+    "tag": "relationship"
+  },
+  {
+    "question": "How did we stop the nightly job from charging people twice?",
+    "gold_message_ids": [
+      "m125",
+      "m126"
+    ],
+    "required_message_ids": [
+      "m126"
+    ],
+    "tag": "lookup"
+  },
+  {
+    "question": "Did we decide to use Elasticsearch?",
+    "gold_message_ids": [
+      "m78"
+    ],
+    "required_message_ids": [
+      "m78"
+    ],
+    "tag": "lookup"
+  },
+  {
+    "question": "Which service do we use to send invoice emails?",
+    "gold_message_ids": [
+      "m55"
+    ],
+    "required_message_ids": [
+      "m55"
+    ],
+    "tag": "lookup"
+  },
+  {
+    "question": "How long are login tokens valid and how do we keep people signed in?",
+    "gold_message_ids": [
+      "m22"
+    ],
+    "required_message_ids": [
+      "m22"
+    ],
+    "tag": "lookup"
+  },
+  {
+    "question": "What change makes a stolen refresh token only usable once?",
+    "gold_message_ids": [
+      "m159"
+    ],
+    "required_message_ids": [
+      "m159"
+    ],
+    "tag": "lookup"
+  },
+  {
+    "question": "Why did the team move away from its first choice of data store?",
+    "gold_message_ids": [
+      "m10",
+      "m100",
+      "m101"
+    ],
+    "required_message_ids": [
+      "m10",
+      "m101"
+    ],
+    "tag": "relationship"
+  },
+  {
+    "question": "What did we do about the slow invoice list page?",
+    "gold_message_ids": [
+      "m44",
+      "m148"
+    ],
+    "required_message_ids": [
+      "m44",
+      "m148"
+    ],
+    "tag": "relationship"
+  },
+  {
+    "question": "What is the API rate limit?",
+    "gold_message_ids": [
+      "m89"
+    ],
+    "required_message_ids": [
+      "m89"
+    ],
+    "tag": "lookup"
+  }
+]

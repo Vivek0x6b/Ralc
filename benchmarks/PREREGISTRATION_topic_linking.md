@@ -96,3 +96,24 @@ applicable and is not run; the re-extraction report says so.
 - The new behavior is implemented tests-first and the full existing test suite
   stays green. Signals(entities=..., is_decision=...) stays equal to one with
   topic=None, so existing equality assertions hold.
+
+## Amendment (2026-10-09): corrected gold labels and complete-story metric
+
+From a by-hand review of the gold labels, done before the topic-linking results
+were seen. questions.json is unchanged; labels are added alongside in
+question_labels.json (per dataset, from benchmarks/data/build_labels.py).
+
+- required_message_ids: the minimal set of gold messages that together state
+  every gold fact; gold_message_ids stays the supporting set.
+- Complete-story uses required_message_ids; recall stays on gold_message_ids.
+- Tags come from the required set (two or more required = relationship).
+
+required != gold for: v1 Q4 [m113], Q7 [m126], Q12 [m10, m101]; v2 Q4 [m102],
+Q7 [m114], Q12 [m8, m91], Q15 [m8, m91, m240]. New tag counts: v1 relationship
+6 / lookup 8; v2 relationship 9 / lookup 8 (Q4 and Q7 move to lookup). The
+topic-linking report's complete-story by type uses these required-based tags.
+
+Review note on Q8: the word Elasticsearch appears in no message in either
+dataset; the gold search_decision message says "a separate search cluster ...
+Postgres full text search". The gold set is unchanged; recorded for honest
+interpretation.

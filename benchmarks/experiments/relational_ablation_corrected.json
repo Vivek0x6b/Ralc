@@ -1,0 +1,1054 @@
+{
+  "generated_at": "2026-10-09T10:09:10.924270+00:00",
+  "source": "relational_ablation_results.json",
+  "datasets": {
+    "v1": {
+      "budgets": [
+        1000,
+        2000,
+        4000
+      ],
+      "methods": [
+        "recent",
+        "vector",
+        "graph",
+        "ralc_heuristic",
+        "relations_off",
+        "relations_off_matched",
+        "redundancy_off",
+        "relation_aware",
+        "full",
+        "ralc_gemma",
+        "ralc_gemma_relation_aware"
+      ],
+      "counts": {
+        "old": {
+          "relationship": 8,
+          "lookup": 6
+        },
+        "new": {
+          "relationship": 6,
+          "lookup": 8
+        }
+      },
+      "rates": {
+        "1000": {
+          "relationship": {
+            "recent": {
+              "old": 0.0,
+              "new": 0.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "vector": {
+              "old": 0.75,
+              "new": 0.6666666666666666,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "graph": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "ralc_heuristic": {
+              "old": 0.875,
+              "new": 0.8333333333333334,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "relations_off": {
+              "old": 0.75,
+              "new": 0.6666666666666666,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "relations_off_matched": {
+              "old": 0.75,
+              "new": 0.6666666666666666,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "redundancy_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "relation_aware": {
+              "old": 0.875,
+              "new": 0.8333333333333334,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "ralc_gemma": {
+              "old": 0.875,
+              "new": 0.8333333333333334,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "ralc_gemma_relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            }
+          },
+          "lookup": {
+            "recent": {
+              "old": 0.0,
+              "new": 0.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "vector": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "graph": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_heuristic": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off_matched": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "redundancy_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_gemma": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_gemma_relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            }
+          }
+        },
+        "2000": {
+          "relationship": {
+            "recent": {
+              "old": 0.0,
+              "new": 0.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "vector": {
+              "old": 0.875,
+              "new": 0.8333333333333334,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "graph": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "ralc_heuristic": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "relations_off": {
+              "old": 0.75,
+              "new": 0.6666666666666666,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "relations_off_matched": {
+              "old": 0.75,
+              "new": 0.6666666666666666,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "redundancy_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "ralc_gemma": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "ralc_gemma_relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            }
+          },
+          "lookup": {
+            "recent": {
+              "old": 0.0,
+              "new": 0.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "vector": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "graph": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_heuristic": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off_matched": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "redundancy_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_gemma": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_gemma_relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            }
+          }
+        },
+        "4000": {
+          "relationship": {
+            "recent": {
+              "old": 0.0,
+              "new": 0.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "vector": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "graph": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "ralc_heuristic": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "relations_off": {
+              "old": 0.75,
+              "new": 0.6666666666666666,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "relations_off_matched": {
+              "old": 0.875,
+              "new": 0.8333333333333334,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "redundancy_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "ralc_gemma": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            },
+            "ralc_gemma_relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 8,
+              "new_n": 6
+            }
+          },
+          "lookup": {
+            "recent": {
+              "old": 0.0,
+              "new": 0.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "vector": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "graph": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_heuristic": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off_matched": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "redundancy_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_gemma": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_gemma_relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            }
+          }
+        }
+      }
+    },
+    "v2": {
+      "budgets": [
+        250,
+        500,
+        1000,
+        2000,
+        4000
+      ],
+      "methods": [
+        "recent",
+        "vector",
+        "graph",
+        "ralc_heuristic",
+        "relations_off",
+        "relations_off_matched",
+        "redundancy_off",
+        "relation_aware",
+        "full"
+      ],
+      "counts": {
+        "old": {
+          "relationship": 11,
+          "lookup": 6
+        },
+        "new": {
+          "relationship": 9,
+          "lookup": 8
+        }
+      },
+      "rates": {
+        "250": {
+          "relationship": {
+            "recent": {
+              "old": 0.0,
+              "new": 0.0,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "vector": {
+              "old": 0.45454545454545453,
+              "new": 0.3333333333333333,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "graph": {
+              "old": 0.45454545454545453,
+              "new": 0.3333333333333333,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "ralc_heuristic": {
+              "old": 0.45454545454545453,
+              "new": 0.3333333333333333,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relations_off": {
+              "old": 0.2727272727272727,
+              "new": 0.1111111111111111,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relations_off_matched": {
+              "old": 0.18181818181818182,
+              "new": 0.1111111111111111,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "redundancy_off": {
+              "old": 0.45454545454545453,
+              "new": 0.3333333333333333,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relation_aware": {
+              "old": 0.45454545454545453,
+              "new": 0.3333333333333333,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 11,
+              "new_n": 9
+            }
+          },
+          "lookup": {
+            "recent": {
+              "old": 0.16666666666666666,
+              "new": 0.125,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "vector": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "graph": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_heuristic": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off_matched": {
+              "old": 1.0,
+              "new": 0.875,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "redundancy_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            }
+          }
+        },
+        "500": {
+          "relationship": {
+            "recent": {
+              "old": 0.0,
+              "new": 0.0,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "vector": {
+              "old": 0.6363636363636364,
+              "new": 0.5555555555555556,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "graph": {
+              "old": 0.6363636363636364,
+              "new": 0.5555555555555556,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "ralc_heuristic": {
+              "old": 0.7272727272727273,
+              "new": 0.6666666666666666,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relations_off": {
+              "old": 0.6363636363636364,
+              "new": 0.5555555555555556,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relations_off_matched": {
+              "old": 0.5454545454545454,
+              "new": 0.4444444444444444,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "redundancy_off": {
+              "old": 0.7272727272727273,
+              "new": 0.6666666666666666,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relation_aware": {
+              "old": 0.7272727272727273,
+              "new": 0.6666666666666666,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 11,
+              "new_n": 9
+            }
+          },
+          "lookup": {
+            "recent": {
+              "old": 0.3333333333333333,
+              "new": 0.25,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "vector": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "graph": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_heuristic": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off_matched": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "redundancy_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            }
+          }
+        },
+        "1000": {
+          "relationship": {
+            "recent": {
+              "old": 0.0,
+              "new": 0.0,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "vector": {
+              "old": 0.7272727272727273,
+              "new": 0.6666666666666666,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "graph": {
+              "old": 0.7272727272727273,
+              "new": 0.6666666666666666,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "ralc_heuristic": {
+              "old": 0.7272727272727273,
+              "new": 0.6666666666666666,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relations_off": {
+              "old": 0.6363636363636364,
+              "new": 0.5555555555555556,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relations_off_matched": {
+              "old": 0.6363636363636364,
+              "new": 0.5555555555555556,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "redundancy_off": {
+              "old": 0.7272727272727273,
+              "new": 0.6666666666666666,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relation_aware": {
+              "old": 0.7272727272727273,
+              "new": 0.6666666666666666,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 11,
+              "new_n": 9
+            }
+          },
+          "lookup": {
+            "recent": {
+              "old": 0.3333333333333333,
+              "new": 0.25,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "vector": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "graph": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_heuristic": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off_matched": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "redundancy_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            }
+          }
+        },
+        "2000": {
+          "relationship": {
+            "recent": {
+              "old": 0.0,
+              "new": 0.0,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "vector": {
+              "old": 0.8181818181818182,
+              "new": 0.7777777777777778,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "graph": {
+              "old": 0.8181818181818182,
+              "new": 0.7777777777777778,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "ralc_heuristic": {
+              "old": 0.8181818181818182,
+              "new": 0.7777777777777778,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relations_off": {
+              "old": 0.6363636363636364,
+              "new": 0.5555555555555556,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relations_off_matched": {
+              "old": 0.7272727272727273,
+              "new": 0.6666666666666666,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "redundancy_off": {
+              "old": 0.7272727272727273,
+              "new": 0.6666666666666666,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relation_aware": {
+              "old": 0.8181818181818182,
+              "new": 0.7777777777777778,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 11,
+              "new_n": 9
+            }
+          },
+          "lookup": {
+            "recent": {
+              "old": 0.3333333333333333,
+              "new": 0.25,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "vector": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "graph": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_heuristic": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off_matched": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "redundancy_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            }
+          }
+        },
+        "4000": {
+          "relationship": {
+            "recent": {
+              "old": 0.0,
+              "new": 0.0,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "vector": {
+              "old": 0.8181818181818182,
+              "new": 0.7777777777777778,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "graph": {
+              "old": 0.8181818181818182,
+              "new": 0.7777777777777778,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "ralc_heuristic": {
+              "old": 0.8181818181818182,
+              "new": 0.7777777777777778,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relations_off": {
+              "old": 0.6363636363636364,
+              "new": 0.5555555555555556,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relations_off_matched": {
+              "old": 0.7272727272727273,
+              "new": 0.6666666666666666,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "redundancy_off": {
+              "old": 0.8181818181818182,
+              "new": 0.7777777777777778,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "relation_aware": {
+              "old": 0.8181818181818182,
+              "new": 0.7777777777777778,
+              "old_n": 11,
+              "new_n": 9
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 11,
+              "new_n": 9
+            }
+          },
+          "lookup": {
+            "recent": {
+              "old": 0.3333333333333333,
+              "new": 0.25,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "vector": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "graph": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "ralc_heuristic": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relations_off_matched": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "redundancy_off": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "relation_aware": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            },
+            "full": {
+              "old": 1.0,
+              "new": 1.0,
+              "old_n": 6,
+              "new_n": 8
+            }
+          }
+        }
+      }
+    }
+  }
+}

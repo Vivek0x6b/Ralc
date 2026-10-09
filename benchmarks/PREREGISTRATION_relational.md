@@ -130,3 +130,32 @@ of questions) per question type and per budget.
   node; with the switch off it is dropped.
 - The full existing test suite must stay green.
 - No weights are changed. No vocabulary is added.
+
+## Amendment (2026-10-09): corrected gold labels and complete-story metric
+
+This amendment comes from a by-hand review of the gold labels, done before the
+topic-linking results were seen. questions.json is unchanged; the labels are
+added alongside in question_labels.json (one per dataset, built by
+benchmarks/data/build_labels.py).
+
+- required_message_ids: the minimal set of gold messages that together state
+  every gold fact. gold_message_ids stays the supporting set.
+- Complete-story is measured on required_message_ids (every required message
+  selected). Recall stays on gold_message_ids.
+- Question tags come from the required set: two or more required messages is a
+  relationship question, exactly one is a lookup.
+
+required != gold for: v1 Q4 [m113], Q7 [m126], Q12 [m10, m101]; v2 Q4 [m102],
+Q7 [m114], Q12 [m8, m91], Q15 [m8, m91, m240]. In each case the fix or reason
+message already states every fact of the dropped message. New tag counts: v1
+relationship 6 / lookup 8 (was 8 / 6); v2 relationship 9 / lookup 8 (was 11 / 6),
+as Q4 and Q7 move from relationship to lookup.
+
+Review note on Q8 ("Did we decide to use Elasticsearch?"): the word Elasticsearch
+appears in no message in either dataset; the gold message says "a separate search
+cluster ... Postgres full text search". The gold set is left unchanged; this is
+recorded so the label is read with that in mind.
+
+The relational ablation is recomputed with this metric and these tags in
+benchmarks/experiments/relational_ablation_corrected.md, old and new side by
+side. No API calls and no re-extraction were involved.
