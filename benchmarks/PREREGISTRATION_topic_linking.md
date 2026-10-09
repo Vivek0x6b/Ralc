@@ -75,6 +75,16 @@ the v2 Gemma graph now that v2 is warmed). The report includes:
    for entity-only vs entity-or-topic Gemma graphs with relation-aware selection,
    next to the existing methods.
 
+## Deviation (2026-10-09, recorded before results)
+
+Batching was dropped. On this endpoint a batched generation does not complete
+within the pre-registered 45 second server deadline: a 5-message batch returned
+504 DEADLINE_EXCEEDED at 44.5s, while a single-message call succeeds in about 16
+seconds. Keeping the fixed 45 second timeout as pre-registered, extraction uses
+single-message calls instead of batches of 15. Everything else is unchanged.
+Because there is no batched path, the batch-leakage check below is not
+applicable and is not run; the re-extraction report says so.
+
 ## Integrity checks
 
 - Batch leakage: a sample of about 20 messages is extracted both batched and
