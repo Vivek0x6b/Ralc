@@ -21,6 +21,12 @@ class SelectionConfig:
     # nodes, so near-duplicates are less likely to be chosen.
     redundancy_penalty: bool = True
     redundancy_lambda: float = 0.5
+    # Relation-aware redundancy: skip the redundancy penalty between a candidate
+    # and an already-selected node that the graph links by a direct edge (either
+    # direction) of one of these types, so a complementary linked pair (a
+    # decision and its update, a question and its answer) is not treated as a
+    # near-duplicate. Default empty, which reproduces the plain MMR behavior.
+    redundancy_exempt_edge_types: tuple[str, ...] = ()
     # A candidate whose adjusted score is <= min_score is never selected, even
     # if it fits; RALC may return fewer tokens than the budget allows.
     min_score: float = 0.0
@@ -78,8 +84,17 @@ class ContextSelector:
         cfg = self.config
         if not cfg.redundancy_penalty or not selected:
             return score
-        peak = max((self._similarity(node_id, other) for other in selected), default=0.0)
+        exempt = self._exempt_partners(node_id) if cfg.redundancy_exempt_edge_types else frozenset()
+        peak = max(
+            (self._similarity(node_id, other) for other in selected if other not in exempt),
+            default=0.0,
+        )
         return score - cfg.redundancy_lambda * peak
+
+    def _exempt_partners(self, node_id: str) -> set[str]:
+        """Node ids linked to ``node_id`` by an exempt edge type (either direction)."""
+        types = list(self.config.redundancy_exempt_edge_types)
+        return {neighbor_id for neighbor_id, _edge in self.graph.neighbors(node_id, types=types)}
 
     def _similarity(self, a: str, b: str) -> float:
         vector_a = self.semantic_retriever.embedding(a)

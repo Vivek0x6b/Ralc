@@ -184,6 +184,61 @@ def test_without_redundancy_keeps_duplicate():
     assert "D2" in {n.id for n in res.nodes}
 
 
+# ==========================================================================
+# Relation-aware redundancy: waive the MMR penalty between linked nodes.
+# ==========================================================================
+
+def _dup_graph_linked(etype, source="D1", target="D2"):
+    g, retriever, counter = _dup_graph()
+    g.add_edge(Edge(source, target, etype, weight=0.7))
+    return g, retriever, counter
+
+
+@pytest.mark.parametrize("etype", ["UPDATES", "ANSWERS"])
+def test_relation_aware_redundancy_keeps_linked_duplicate(etype):
+    g, retriever, counter = _dup_graph_linked(etype)
+    cfg = SelectionConfig(strategy="greedy_score", redundancy_penalty=True,
+                          redundancy_lambda=1.0, min_score=0.0,
+                          redundancy_exempt_edge_types=(etype,))
+    sel = ContextSelector(g, counter, cfg, semantic_retriever=retriever)
+    res = sel.select("q", [_rc("D1", 1.0), _rc("D2", 0.95), _rc("X", 0.9)], token_budget=100)
+    # D2 is a near-duplicate of D1 but linked by etype, so it is kept.
+    assert {n.id for n in res.nodes} == {"D1", "D2", "X"}
+
+
+def test_relation_aware_redundancy_direction_insensitive():
+    g, retriever, counter = _dup_graph_linked("UPDATES", source="D2", target="D1")
+    cfg = SelectionConfig(strategy="greedy_score", redundancy_penalty=True,
+                          redundancy_lambda=1.0,
+                          redundancy_exempt_edge_types=("UPDATES",))
+    sel = ContextSelector(g, counter, cfg, semantic_retriever=retriever)
+    res = sel.select("q", [_rc("D1", 1.0), _rc("D2", 0.95), _rc("X", 0.9)], token_budget=100)
+    assert "D2" in {n.id for n in res.nodes}
+
+
+def test_relation_aware_redundancy_only_exempts_listed_types():
+    g, retriever, counter = _dup_graph_linked("TEMPORALLY_FOLLOWS")
+    cfg = SelectionConfig(strategy="greedy_score", redundancy_penalty=True,
+                          redundancy_lambda=1.0,
+                          redundancy_exempt_edge_types=("UPDATES", "ANSWERS"))
+    sel = ContextSelector(g, counter, cfg, semantic_retriever=retriever)
+    res = sel.select("q", [_rc("D1", 1.0), _rc("D2", 0.95), _rc("X", 0.9)], token_budget=100)
+    # The edge is not one of the exempt types, so the duplicate is still dropped.
+    assert {n.id for n in res.nodes} == {"D1", "X"}
+
+
+def test_relation_aware_default_empty_changes_nothing():
+    # An UPDATES edge exists, but the default empty exempt set means the
+    # duplicate is dropped exactly as it is without the feature.
+    g, retriever, counter = _dup_graph_linked("UPDATES")
+    cfg = SelectionConfig(strategy="greedy_score", redundancy_penalty=True,
+                          redundancy_lambda=1.0)
+    assert cfg.redundancy_exempt_edge_types == ()
+    sel = ContextSelector(g, counter, cfg, semantic_retriever=retriever)
+    res = sel.select("q", [_rc("D1", 1.0), _rc("D2", 0.95), _rc("X", 0.9)], token_budget=100)
+    assert {n.id for n in res.nodes} == {"D1", "X"}
+
+
 def test_low_score_candidate_excluded_with_budget_left():
     g = _graph([("A", "a", 0), ("B", "b", 1)])
     counter = FakeCounter({"a": 2, "b": 2})
