@@ -15,6 +15,7 @@ rather than retried forever or crashing the run.
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 import time
@@ -66,9 +67,15 @@ def _warm_one(label, extractor, texts, cache, failures):
     save_gemma_cache(cache)
 
 
-def main():
-    messages = json.loads((DATA / "conversation.json").read_text(encoding="utf-8"))
-    questions = json.loads((DATA / "questions.json").read_text(encoding="utf-8"))
+def main(argv=None):
+    parser = argparse.ArgumentParser(description="Warm the Gemma extraction cache.")
+    parser.add_argument("--dataset", choices=("v1", "v2"), default="v1",
+                        help="which dataset to warm (v1 default; v2 is the harder set).")
+    args = parser.parse_args(argv)
+
+    data_dir = DATA if args.dataset == "v1" else DATA / "v2"
+    messages = json.loads((data_dir / "conversation.json").read_text(encoding="utf-8"))
+    questions = json.loads((data_dir / "questions.json").read_text(encoding="utf-8"))
     texts = extraction_texts(messages, questions)
 
     cache = load_gemma_cache()
